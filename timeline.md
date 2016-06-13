@@ -109,7 +109,13 @@ none
     - Connect Experiment DB with Django DB
     - Run query from Rails route to DB that queries spencer and IES info
     - Complete 5 other scrapers for 5 other organizations to run following this same pattern
-
+    - Locate 3 researchers to ask about ED grants
+        - masters student
+        - PhD student
+        - young professor
+        - (old professor?)
+    - Wednesday learning time
+        - How to Scrape with Python
 
 # Week 2: June 20 - June 26
 
@@ -119,9 +125,24 @@ none
     - Scrapy?
 - Connect all remaining scrapers to DB with org and json object
 - Connect rails route to DB so that it can query for all organizations
+- Start to create Rails front end database
+- Front-end has table of all grants
+- Front end has search bar for grants that accepts searchable terms listed above
+- front-end has sort options for grants that accepts sort options listed above
+- Contact 3 researchers
+    - What resources do you use?
+    - What would you like in a grants search?
+    - What do you think of my grants search?
+    - What would you improve?
 
 
 
 # Week 3: June 27 - July 1
+
+- Polish front-end
+- Use Experiment style guide
+- Allow additional features when User is logged in
+    - See luxury goals
+
 
 
