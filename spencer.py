@@ -2,18 +2,27 @@ import requests
 import bs4
 import pudb
 import re
+import json
+
+
+def pretty_print(_dict):
+    print(json.dumps(_dict, indent=4))
 
 
 def get_link_from_soup_tag(tag):
     return tag.a['href']
 
 
-def link_builder(tag):
+def tag_link_builder(tag):
     """
     takes a bs tag object
     returns the link of that li tag element
     """
     return "http://www.spencer.org" + get_link_from_soup_tag(tag)
+
+
+def str_link_builder(_str):
+    return "http://www.spencer.org" + _str
 
 
 def cook_soup(link):
@@ -33,7 +42,7 @@ def name_deadline_link(row):
     cells = row.find_all("td")
     name = cells[0].get_text()
     deadline = cells[1].get_text()
-    link = link_builder(cells[2])
+    link = tag_link_builder(cells[2])
     return {'name': name, 'deadline': deadline, 'link': link}
 
 
@@ -115,6 +124,18 @@ def find_contact_name(soup):
     return name
 
 
+def find_description_link(soup):
+    pattern = re.compile(r'Home Page')
+    link = str_link_builder(soup(text=pattern)[0].parent['href'])
+    return link
+
+
+def find_description(soup):
+    link = find_description_link(soup)
+    new_soup = cook_soup(link)
+    return new_soup.select('.field-type-text-with-summary')[0].get_text()
+
+
 soup = cook_soup("http://www.spencer.org/apply")
 rows = soup.find("table").find("tbody").find_all("tr")
 
@@ -142,9 +163,11 @@ for grant in grants['spencer']:
     grant['contact_name'] = find_contact_name(soup)
 
     # find more links
-    
 
-print grants['spencer']
+    # find description
+    grant['description'] = find_description(soup)
+
+print pretty_print(grants['spencer'])
 
 
 """
@@ -164,7 +187,7 @@ Which has a table that's easier to parse
 # left_div_grant_links = soup.select('div#left li.leaf')
 
 # # get all links in the left div
-# links = [link_builder(li) for li in left_div_grant_links]
+# links = [tag_link_builder(li) for li in left_div_grant_links]
 
 # for link in links:
 #     soup = cook_soup(link)
