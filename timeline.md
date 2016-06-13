@@ -1,5 +1,31 @@
 # MVP
 
+ - Grants Database for Higher Education, Education Research
+ - Table lists all grants with:
+     - organization
+     - name
+     - contact info
+     - link
+     - deadline
+     - description
+     - amount
+     - type: award v grant
+     - tags
+ - Searchable by:
+     - organization
+     - amount
+     - deadline
+     - keywords
+     - type
+     - tags
+ - Sortable by:
+     - amount
+     - deadline
+     - type
+ - Database scrapes grant sources at least once daily
+ - populates database with source and json object of info about each grant from source
+ - Scraper for each source has notification alert if it fails
+ - Clicking on a grant goes to a page with details about that grant and links to the actual grant page
  - Grants database include at least 17 sources.
  - 4 - Humanities, Social Science, STEM
  - 4 - State and Federal Funding Sources
@@ -27,6 +53,7 @@
             - also in `Humanities, Social Science, STEM`
         - Institute of Education Sciences (IES)
             - http://www.ed.gov/about/offices/list/ies/index.html
+            - http://ies.ed.gov/funding/index.asp#current
     - International Funding Sources
     - Foundations - 5
         - The American Educational Research Association (AERA)
@@ -52,16 +79,46 @@
         - Pivot
             - http://pivot.cos.com/funding/results
 
- - Table of Grants for Higher Education, Education Research
+
+# Luxury Goals
+- Subscribe to a search
+    - update user with email if new grants/awards added to their search
+- Track specific grants on profile
+    - user can see table of tracked grants and links to details about that grant
+- Organizations can list their grants on our site
+
 
 # Week 1: June 13 - June 19
 
- - M
+ - Mon
      - Talk to D/C about project
      - Try to make scraper for Spencer
-     - 
+     - make MVP, luxury goals, schedule
+
+
+none
+
+
+- Tues - Sun
+    - Write blog post about plan for project
+    - Makes scraper for IES
+        - http://ies.ed.gov/funding/index.asp#current
+    - Create Django project which runs celery/redis background tasks and scrapes spencer, IES
+        - scraper scrapes once per day
+        - populates database with org, json object
+    - Connect Experiment DB with Django DB
+    - Run query from Rails route to DB that queries spencer and IES info
+    - Complete 5 other scrapers for 5 other organizations to run following this same pattern
+
 
 # Week 2: June 20 - June 26
+
+- Complete remaining scrapers
+- Look for larger scraper potential 
+    - Natural language processing?
+    - Scrapy?
+- Connect all remaining scrapers to DB with org and json object
+- Connect rails route to DB so that it can query for all organizations
 
 
 
