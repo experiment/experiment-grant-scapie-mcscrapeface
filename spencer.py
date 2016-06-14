@@ -21,8 +21,8 @@ def tag_link_builder(tag):
     return "http://www.spencer.org" + get_link_from_soup_tag(tag)
 
 
-def str_link_builder(_str):
-    return "http://www.spencer.org" + _str
+def str_link_builder(_str, base="http://www.spencer.org"):
+    return base + _str
 
 
 def cook_soup(link):
@@ -124,8 +124,8 @@ def find_contact_name(soup):
     return name
 
 
-def find_description_link(soup):
-    pattern = re.compile(r'Home Page')
+def find_description_link(soup, text='Home Page'):
+    pattern = re.compile(text)
     link = str_link_builder(soup(text=pattern)[0].parent['href'])
     return link
 
@@ -136,38 +136,40 @@ def find_description(soup):
     return new_soup.select('.field-type-text-with-summary')[0].get_text()
 
 
-soup = cook_soup("http://www.spencer.org/apply")
-rows = soup.find("table").find("tbody").find_all("tr")
+def run():
+    soup = cook_soup("http://www.spencer.org/apply")
+    rows = soup.find("table").find("tbody").find_all("tr")
 
+    # get name, deadline, and link to guidelines
+    grants = {}
+    grants['spencer'] = []
+    for i, row in enumerate(rows):
+        if i != 0:
+            grants['spencer'].append(name_deadline_link(row))
 
-# get name, deadline, and link to guidelines
-grants = {}
-grants['spencer'] = []
-for i, row in enumerate(rows):
-    if i != 0:
-        grants['spencer'].append(name_deadline_link(row))
+    # follow link to guidelines
+    for grant in grants['spencer']:
+        # get soup
+        soup = cook_soup(grant['link'])
 
+        # find amount
+        grant['amount'] = find_max_grant_amount(soup)
 
-# follow link to guidelines
-for grant in grants['spencer']:
-    # get soup
-    soup = cook_soup(grant['link'])
+        # find program contact email address
+        grant['contact_email'] = find_contact_email_address(soup)
 
-    # find amount
-    grant['amount'] = find_max_grant_amount(soup)
+        # find program contact name
+        grant['contact_name'] = find_contact_name(soup)
 
-    # find program contact email address
-    grant['contact_email'] = find_contact_email_address(soup)
+        # find more links
 
-    # find program contact name
-    grant['contact_name'] = find_contact_name(soup)
+        # find description
+        grant['description'] = find_description(soup)
 
-    # find more links
+    print pretty_print(grants['spencer'])
 
-    # find description
-    grant['description'] = find_description(soup)
-
-print pretty_print(grants['spencer'])
+if __name__ == "__main__":
+    run()
 
 
 """
