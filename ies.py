@@ -3,8 +3,10 @@ import pudb
 import urllib
 import os
 import glob
-from subprocess import call
-from spencer import cook_soup, str_link_builder
+import requests
+import subprocess
+from spencer import cook_soup, str_link_builder, pretty_print
+import json
 
 # download all pdf's at http://ies.ed.gov/funding/17rfas.asp
 
@@ -27,7 +29,21 @@ from spencer import cook_soup, str_link_builder
 # Applicant Type
 # Eligibility
 # Keywords
+# POST /grantsws/OppsSearch HTTP/1.1
+# Host: www.grants.gov
+# Connection: keep-alive
+# Content-Length: 63
+# Accept: application/json, text/javascript, */*; q=0.01
+# Origin: http://www.grants.gov
+# X-Requested-With: XMLHttpRequest
+# User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36
+# Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+# Referer: http://www.grants.gov/custom/search.jsp
+# Accept-Encoding: gzip, deflate
+# Accept-Language: en-US,en;q=0.8
+# Cookie: BIGipServerProd-Liferay-Pool=285870602.32031.0000; JSESSIONID=CC1BBA5FA67CDA9080B7EE391B3EC867; __utma=119926110.2080771840.1465935673.1465937835.1465943745.4; __utmb=119926110.3.10.1465943745; __utmc=119926110; __utmz=119926110.1465937835.3.3.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); fsr.s=%7B%22v2%22%3A-2%2C%22v1%22%3A1%2C%22rid%22%3A%22de35430-94672617-59b6-f88d-6d1c5%22%2C%22ru%22%3A%22http%3A%2F%2Fpivot.cos.com%2Ffunding_opps%2F112936%22%2C%22r%22%3A%22pivot.cos.com%22%2C%22st%22%3A%22%22%2C%22to%22%3A5%2C%22c%22%3A%22http%3A%2F%2Fwww.grants.gov%2Fweb%2Fgrants%2Fsearch-grants.html%22%2C%22pv%22%3A38%2C%22lc%22%3A%7B%22d0%22%3A%7B%22v%22%3A38%2C%22s%22%3Atrue%7D%7D%2C%22cd%22%3A0%2C%22f%22%3A1465943742691%2C%22sd%22%3A0%2C%22l%22%3A%22en%22%2C%22i%22%3A-1%7D
 
+# curl 'http://www.grants.gov/grantsws/OppsSearch' -H 'Cookie: BIGipServerProd-Liferay-Pool=285870602.32031.0000; JSESSIONID=CC1BBA5FA67CDA9080B7EE391B3EC867; __utma=119926110.2080771840.1465935673.1465937835.1465943745.4; __utmb=119926110.3.10.1465943745; __utmc=119926110; __utmz=119926110.1465937835.3.3.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); fsr.s=%7B%22v2%22%3A-2%2C%22v1%22%3A1%2C%22rid%22%3A%22de35430-94672617-59b6-f88d-6d1c5%22%2C%22ru%22%3A%22http%3A%2F%2Fpivot.cos.com%2Ffunding_opps%2F112936%22%2C%22r%22%3A%22pivot.cos.com%22%2C%22st%22%3A%22%22%2C%22to%22%3A5%2C%22c%22%3A%22http%3A%2F%2Fwww.grants.gov%2Fweb%2Fgrants%2Fsearch-grants.html%22%2C%22pv%22%3A38%2C%22lc%22%3A%7B%22d0%22%3A%7B%22v%22%3A38%2C%22s%22%3Atrue%7D%7D%2C%22cd%22%3A0%2C%22f%22%3A1465943742691%2C%22sd%22%3A0%2C%22l%22%3A%22en%22%2C%22i%22%3A-1%7D' -H 'Origin: http://www.grants.gov' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: http://www.grants.gov/custom/search.jsp' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'jp={"startRecordNum":0,"keyword":"84.305","oppStatuses":"open"}' --compressed
 
 """
 new plan
@@ -43,6 +59,76 @@ click link
 scrape pivots page
 """
 
+"""
+go to http://www.grants.gov/web/grants/search-grants.html?keywords=84.305
+scrape all js links
+for each
+go to http://www.grants.gov/view-opportunity.html?dpp=1&oppId= + js link id
+scrape
+
+http://www.grants.gov/view-opportunity.html?dpp=1&oppId=282041
+"""
+
+def find_all_elements_with_text(soup, element, text):
+    """
+    takes
+    a soup object
+    and
+    an element as a string, something like 'a'
+    and
+    a text string, something like 'print as a PDF'
+    and returns a list
+    where each element is a bs4.element.Tag object
+    """
+    return soup(element, text=re.compile(text))
+
+
+def split_at_paren(_str):
+    """
+    """
+
+def run_post():
+    url = 'http://www.grants.gov/grantsws/OppsSearch'
+    data = {"startRecordNum":0,"keyword":"84.305","oppStatuses":"open"}
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+
+    r = requests.post(url, data=json.dumps(data), headers=headers)
+
+    return json.dumps(r.json(), indent=4)
+
+_str = """
+curl 'http://www.grants.gov/grantsws/OppsSearch' -H 'Cookie: BIGipServerProd-Liferay-Pool=285870602.32031.0000; JSESSIONID=CC1BBA5FA67CDA9080B7EE391B3EC867; __utma=119926110.2080771840.1465935673.1465937835.1465943745.4; __utmb=119926110.3.10.1465943745; __utmc=119926110; __utmz=119926110.1465937835.3.3.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); fsr.s=%7B%22v2%22%3A-2%2C%22v1%22%3A1%2C%22rid%22%3A%22de35430-94672617-59b6-f88d-6d1c5%22%2C%22ru%22%3A%22http%3A%2F%2Fpivot.cos.com%2Ffunding_opps%2F112936%22%2C%22r%22%3A%22pivot.cos.com%22%2C%22st%22%3A%22%22%2C%22to%22%3A5%2C%22c%22%3A%22http%3A%2F%2Fwww.grants.gov%2Fweb%2Fgrants%2Fsearch-grants.html%22%2C%22pv%22%3A38%2C%22lc%22%3A%7B%22d0%22%3A%7B%22v%22%3A38%2C%22s%22%3Atrue%7D%7D%2C%22cd%22%3A0%2C%22f%22%3A1465943742691%2C%22sd%22%3A0%2C%22l%22%3A%22en%22%2C%22i%22%3A-1%7D' -H 'Origin: http://www.grants.gov' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: http://www.grants.gov/custom/search.jsp' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'jp={"startRecordNum":0,"keyword":"84.305","oppStatuses":"open"}' --compressed
+"""
+# pu.db
+# _return = os.system(_str)
+
+# item = subprocess.check_output([_str])
+
+item = os.popen(_str).read()
+
+item = json.loads(item)
+
+for opp in item["oppHits"]:
+    pretty_print(opp["id"])
+
+
+
+
+# soup = cook_soup("http://www.grants.gov/web/grants/search-grants.html?keywords=84.305")
+
+
+
+# LINK = "http://ies.ed.gov/funding/17rfas.asp"
+
+# soup = cook_soup(LINK)
+
+# grants = find_all_elements_with_text(soup, 'strong', '84.3')
+
+# grants_text = [tag.get_text() for tag in grants]
+
+
+
+# print grants_text
 
 
 
@@ -121,4 +207,4 @@ this turned out to be essentially impossible
 
 
 
-print full_links
+# print full_links

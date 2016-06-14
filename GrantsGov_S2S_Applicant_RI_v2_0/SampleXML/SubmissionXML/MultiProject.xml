@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mpgrant:Application xsi:schemaLocation="http://apply.grants.gov/system/MetaMultiGrantApplication http://trainingapply.grants.gov/apply/opportunities/schemas/applicant/opp11062012-KJ-MP-cfda00.000-cid11062012-KJ-MP.xsd" xmlns:mpgrant="http://apply.grants.gov/system/MetaMultiGrantApplication" 
+xmlns:Overall="http://apply.grants.gov/system/MetaMultiGrantApplication/Overall" 
+xmlns:glob="http://apply.grants.gov/system/Global-V1.0" 
+xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V1.0" 
+xmlns:att="http://apply.grants.gov/system/Attachments-V1.0" 
+xmlns:header="http://apply.grants.gov/system/Header-V1.0" 
+xmlns:footer="http://apply.grants.gov/system/Footer-V1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+>
+	<mpgrant:ApplicationHeader glob:schemaVersion="1.0">
+		<header:GrantSubmissionHeader xmlns:header="http://apply.grants.gov/system/Header-V1.0" xmlns:glob="http://apply.grants.gov/system/Global-V1.0" glob:schemaVersion="1.0">
+			<glob:HashValue glob:hashAlgorithm='SHA-1'>MNL8P8qOZB2FNRXFzMma7klRaHA=</glob:HashValue>
+			<header:AgencyName>KV</header:AgencyName>
+			<header:CFDANumber>00.000</header:CFDANumber>
+			<header:ActivityTitle>Not Elsewhere Classified</header:ActivityTitle>
+			<header:OpportunityID>11062012-KJ-MP</header:OpportunityID>
+			<header:OpportunityTitle>11062012-KJ-MP</header:OpportunityTitle>
+			<header:CompetitionID>11062012-KJ-MP</header:CompetitionID>
+			<header:OpeningDate>2012-11-06</header:OpeningDate>
+			<header:ClosingDate>2020-09-23</header:ClosingDate>
+			<header:SubmissionTitle>Training MP Sample</header:SubmissionTitle>
+		</header:GrantSubmissionHeader>
+	</mpgrant:ApplicationHeader>
+	<mpgrant:ApplicationPackage>
+		<Overall:OverallApplication>
+			<Overall:OverallApplicationHeader>
+				<Overall:OverallApplicationID>Overall</Overall:OverallApplicationID>
+			</Overall:OverallApplicationHeader>
+			<Overall:GrantApplication>
+				<Overall:Forms>
+							<SF424_2_1:SF424_2_1 xmlns:SF424_2_1="http://apply.grants.gov/forms/SF424_2_1-V2.1" SF424_2_1:FormVersion="2.1">
+			<SF424_2_1:SubmissionType>Preapplication</SF424_2_1:SubmissionType>
+			<SF424_2_1:ApplicationType>New</SF424_2_1:ApplicationType>
+			<SF424_2_1:DateReceived>2012-04-30</SF424_2_1:DateReceived>
+			<SF424_2_1:OrganizationName>LN</SF424_2_1:OrganizationName>
+			<SF424_2_1:EmployerTaxpayerIdentificationNumber>22222222222222222222</SF424_2_1:EmployerTaxpayerIdentificationNumber>
+			<SF424_2_1:DUNSNumber>0000000000000</SF424_2_1:DUNSNumber>
+			<SF424_2_1:Applicant>
+				<globLib:Street1 xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">33</globLib:Street1>
+				<globLib:City xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">33</globLib:City>
+				<globLib:State xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">AK: Alaska</globLib:State>
+				<globLib:ZipPostalCode xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">3333333333333333</globLib:ZipPostalCode>
+				<globLib:Country xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">USA: UNITED STATES</globLib:Country>
+			</SF424_2_1:Applicant>
+			<SF424_2_1:ContactPerson>
+				<globLib:FirstName xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">3333</globLib:FirstName>
+				<globLib:LastName xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">33333</globLib:LastName>
+			</SF424_2_1:ContactPerson>
+			<SF424_2_1:PhoneNumber>3333</SF424_2_1:PhoneNumber>
+			<SF424_2_1:Email>3333@W.COM</SF424_2_1:Email>
+			<SF424_2_1:ApplicantTypeCode1>C: City or Township Government</SF424_2_1:ApplicantTypeCode1>
+			<SF424_2_1:AgencyName>KV</SF424_2_1:AgencyName>
+			<SF424_2_1:CFDANumber>00.000</SF424_2_1:CFDANumber>
+			<SF424_2_1:CFDAProgramTitle>Grants.gov Applicant S2S Testing</SF424_2_1:CFDAProgramTitle>
+			<SF424_2_1:FundingOpportunityNumber>11062012-KJ-MP</SF424_2_1:FundingOpportunityNumber>
+			<SF424_2_1:FundingOpportunityTitle>11062012-KJ-MP</SF424_2_1:FundingOpportunityTitle>
+			<SF424_2_1:CompetitionIdentificationNumber>11062012-KJ-MP</SF424_2_1:CompetitionIdentificationNumber>
+			<SF424_2_1:ProjectTitle>DDDD</SF424_2_1:ProjectTitle>
+			<SF424_2_1:CongressionalDistrictApplicant>12345</SF424_2_1:CongressionalDistrictApplicant>
+			<SF424_2_1:CongressionalDistrictProgramProject>123456</SF424_2_1:CongressionalDistrictProgramProject>
+			<SF424_2_1:ProjectStartDate>2012-04-30</SF424_2_1:ProjectStartDate>
+			<SF424_2_1:ProjectEndDate>2012-05-25</SF424_2_1:ProjectEndDate>
+			<SF424_2_1:FederalEstimatedFunding>2.00</SF424_2_1:FederalEstimatedFunding>
+			<SF424_2_1:ApplicantEstimatedFunding>22.00</SF424_2_1:ApplicantEstimatedFunding>
+			<SF424_2_1:StateEstimatedFunding>22.00</SF424_2_1:StateEstimatedFunding>
+			<SF424_2_1:LocalEstimatedFunding>22.00</SF424_2_1:LocalEstimatedFunding>
+			<SF424_2_1:OtherEstimatedFunding>22.00</SF424_2_1:OtherEstimatedFunding>
+			<SF424_2_1:ProgramIncomeEstimatedFunding>22.00</SF424_2_1:ProgramIncomeEstimatedFunding>
+			<SF424_2_1:TotalEstimatedFunding>112.00</SF424_2_1:TotalEstimatedFunding>
+			<SF424_2_1:StateReview>c. Program is not covered by E.O. 12372.</SF424_2_1:StateReview>
+			<SF424_2_1:DelinquentFederalDebt>N: No</SF424_2_1:DelinquentFederalDebt>
+			<SF424_2_1:CertificationAgree>Y: Yes</SF424_2_1:CertificationAgree>
+			<SF424_2_1:AuthorizedRepresentative>
+				<globLib:FirstName xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">DD</globLib:FirstName>
+				<globLib:LastName xmlns:globLib="http://apply.grants.gov/system/GlobalLibrary-V2.0">EE</globLib:LastName>
+			</SF424_2_1:AuthorizedRepresentative>
+			<SF424_2_1:AuthorizedRepresentativeTitle>EE</SF424_2_1:AuthorizedRepresentativeTitle>
+			<SF424_2_1:AuthorizedRepresentativePhoneNumber>EEE</SF424_2_1:AuthorizedRepresentativePhoneNumber>
+			<SF424_2_1:AuthorizedRepresentativeEmail>EEE@W.COM</SF424_2_1:AuthorizedRepresentativeEmail>
+			<SF424_2_1:AORSignature>KJ 04032011</SF424_2_1:AORSignature>
+			<SF424_2_1:DateSigned>2012-04-30</SF424_2_1:DateSigned>
+			</SF424_2_1:SF424_2_1>
+				</Overall:Forms>
+			</Overall:GrantApplication>
+		</Overall:OverallApplication>				
+	</mpgrant:ApplicationPackage>
+</mpgrant:Application>
+
