@@ -96,20 +96,49 @@ def run_post():
 
     return json.dumps(r.json(), indent=4)
 
-_str = """
+first_str = """
 curl 'http://www.grants.gov/grantsws/OppsSearch' -H 'Cookie: BIGipServerProd-Liferay-Pool=285870602.32031.0000; JSESSIONID=CC1BBA5FA67CDA9080B7EE391B3EC867; __utma=119926110.2080771840.1465935673.1465937835.1465943745.4; __utmb=119926110.3.10.1465943745; __utmc=119926110; __utmz=119926110.1465937835.3.3.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); fsr.s=%7B%22v2%22%3A-2%2C%22v1%22%3A1%2C%22rid%22%3A%22de35430-94672617-59b6-f88d-6d1c5%22%2C%22ru%22%3A%22http%3A%2F%2Fpivot.cos.com%2Ffunding_opps%2F112936%22%2C%22r%22%3A%22pivot.cos.com%22%2C%22st%22%3A%22%22%2C%22to%22%3A5%2C%22c%22%3A%22http%3A%2F%2Fwww.grants.gov%2Fweb%2Fgrants%2Fsearch-grants.html%22%2C%22pv%22%3A38%2C%22lc%22%3A%7B%22d0%22%3A%7B%22v%22%3A38%2C%22s%22%3Atrue%7D%7D%2C%22cd%22%3A0%2C%22f%22%3A1465943742691%2C%22sd%22%3A0%2C%22l%22%3A%22en%22%2C%22i%22%3A-1%7D' -H 'Origin: http://www.grants.gov' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: http://www.grants.gov/custom/search.jsp' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'jp={"startRecordNum":0,"keyword":"84.305","oppStatuses":"open"}' --compressed
 """
+
+grant_str = """
+curl 'http://www.grants.gov/grantsws/OppDetails' -H 'Cookie: JSESSIONID=088A5E1DD1A4371F19587EA777860DF9; BIGipServerProd-Liferay-Pool=269093386.32031.0000; __utmt=1; __utma=119926110.2080771840.1465935673.1465943745.1465946371.5; __utmb=119926110.2.10.1465946371; __utmc=119926110; __utmz=119926110.1465937835.3.3.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); fsr.s=%7B%22v2%22%3A-2%2C%22v1%22%3A1%2C%22rid%22%3A%22de35430-94672617-59b6-f88d-6d1c5%22%2C%22ru%22%3A%22http%3A%2F%2Fpivot.cos.com%2Ffunding_opps%2F112936%22%2C%22r%22%3A%22pivot.cos.com%22%2C%22st%22%3A%22%22%2C%22to%22%3A5%2C%22c%22%3A%22http%3A%2F%2Fwww.grants.gov%2Fview-opportunity.html%22%2C%22pv%22%3A40%2C%22lc%22%3A%7B%22d0%22%3A%7B%22v%22%3A40%2C%22s%22%3Atrue%7D%7D%2C%22cd%22%3A0%2C%22f%22%3A1465946400800%2C%22sd%22%3A0%2C%22l%22%3A%22en%22%2C%22i%22%3A-1%7D' -H 'Origin: http://www.grants.gov' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Cache-Control: max-age=0' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' -H 'Referer: http://www.grants.gov/custom/viewOppDetails.jsp' --data 'oppId=282062' --compressed
+"""
+
+other_grant_str_1 = """curl 'http://www.grants.gov/grantsws/OppDetails' -H 'Cookie: JSESSIONID=088A5E1DD1A4371F19587EA777860DF9; BIGipServerProd-Liferay-Pool=269093386.32031.0000; __utmt=1; __utma=119926110.2080771840.1465935673.1465943745.1465946371.5; __utmb=119926110.2.10.1465946371; __utmc=119926110; __utmz=119926110.1465937835.3.3.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); fsr.s=%7B%22v2%22%3A-2%2C%22v1%22%3A1%2C%22rid%22%3A%22de35430-94672617-59b6-f88d-6d1c5%22%2C%22ru%22%3A%22http%3A%2F%2Fpivot.cos.com%2Ffunding_opps%2F112936%22%2C%22r%22%3A%22pivot.cos.com%22%2C%22st%22%3A%22%22%2C%22to%22%3A5%2C%22c%22%3A%22http%3A%2F%2Fwww.grants.gov%2Fview-opportunity.html%22%2C%22pv%22%3A40%2C%22lc%22%3A%7B%22d0%22%3A%7B%22v%22%3A40%2C%22s%22%3Atrue%7D%7D%2C%22cd%22%3A0%2C%22f%22%3A1465946400800%2C%22sd%22%3A0%2C%22l%22%3A%22en%22%2C%22i%22%3A-1%7D' -H 'Origin: http://www.grants.gov' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Cache-Control: max-age=0' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' -H 'Referer: http://www.grants.gov/custom/viewOppDetails.jsp' --data 'oppId="""
+other_grant_str_2 = """' --compressed"""
+
+
+# print '<a href="%(url)s">%(url)s</a>' % {'url': my_url}
+
+
 # pu.db
 # _return = os.system(_str)
 
 # item = subprocess.check_output([_str])
 
-item = os.popen(_str).read()
+item = os.popen(first_str).read()
 
 item = json.loads(item)
 
+ids = []
+
 for opp in item["oppHits"]:
-    pretty_print(opp["id"])
+    ids.append(opp["id"])
+
+
+curls = []
+for _id in ids:
+    curl = other_grant_str_1 + _id + other_grant_str_2
+    curls.append(curl)
+
+for curl in curls:
+    out = os.popen(curl).read()
+    pretty_print(json.loads(out))
+
+
+
+
+
 
 
 
