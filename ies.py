@@ -122,9 +122,13 @@ for _id in ids:
     curl = other_grant_str_1 + _id + other_grant_str_2
     curls.append(curl)
 
+grants = []
 for curl in curls:
     out = os.popen(curl).read()
-    pretty_print(json.loads(out))
+    grants.append(json.loads(out))
+
+grant = {}
+grant['ies'] = grants
 
 
 

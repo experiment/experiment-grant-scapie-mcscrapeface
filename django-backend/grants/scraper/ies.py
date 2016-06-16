@@ -1,8 +1,10 @@
 import re
 import os
 import requests
-from spencer import pretty_print
 import json
+from spencer import pretty_print
+from grants.models import Grant
+
 
 # download all pdf's at http://ies.ed.gov/funding/17rfas.asp
 
@@ -121,9 +123,31 @@ def run():
         curl = other_grant_str_1 + _id + other_grant_str_2
         curls.append(curl)
 
+    grants = []
     for curl in curls:
         out = os.popen(curl).read()
-        pretty_print(json.loads(out))
+        my_json = json.loads(out)
+
+        my_grant = {}
+
+        my_grant['name'] = my_json["opportunityTitle"]
+        my_grant['contact_info_email'] = my_json["synopsis"]["agencyContactEmail"]
+        my_grant['contact_info_phone'] = my_json["synopsis"]["agencyPhone"]
+        my_grant['contact_info_name'] = my_json["synopsis"]["agencyContactName"]
+        my_grant['link'] = my_json["synopsis"]["fundingDescLinkUrl"]
+        my_grant['deadline'] = my_json["synopsis"]["responseDate"]
+        my_grant['description'] = my_json["synopsis"]["synopsisDesc"]
+        my_grant['amount'] = my_json["synopsis"]["awardCeiling"]
+        my_grant["type"] = "grant"
+
+        # grants.append(json.loads(out))
+        grants.append(my_grant)
+
+    grant = {}
+    grant['ies'] = grants
+
+    db_grant = Grant(organization=grant.keys()[0], data=grant['ies'])
+    db_grant.save()
 
 
 # soup = cook_soup("http://www.grants.gov/web/grants/search-grants.html?keywords=84.305")

@@ -157,10 +157,10 @@ def run():
         grant['amount'] = find_max_grant_amount(soup)
 
         # find program contact email address
-        grant['contact_email'] = find_contact_email_address(soup)
+        grant['contact_info_email'] = find_contact_email_address(soup)
 
         # find program contact name
-        grant['contact_name'] = find_contact_name(soup)
+        grant['contact_info_name'] = find_contact_name(soup)
 
         # find more links
 
@@ -170,7 +170,7 @@ def run():
     db_grant = Grant(organization=grants.keys()[0], data=grants['spencer'])
     db_grant.save()
 
-    print pretty_print(grants['spencer'])
+    # print pretty_print(grants['spencer'])
 
 if __name__ == "__main__":
     run()
