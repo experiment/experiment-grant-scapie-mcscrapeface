@@ -19,7 +19,6 @@ pudb==2016.2
 pyasn1==0.1.9
 pyasn1-modules==0.0.8
 pycparser==2.14
-pycurl==7.43.0
 PyDispatcher==2.0.5
 Pygments==2.1.3
 pyOpenSSL==16.0.0
