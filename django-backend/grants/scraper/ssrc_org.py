@@ -127,19 +127,27 @@ def get_staff(grant_soup):
     hrefs = [get_href_from_a(li) for li in lis]
     # see if href contains http://www.ssrc.org/staff/
     staff_link = ""
-    for href in enumerate(hrefs):
-        try:
-            if "http://www.ssrc.org/staff/" in href:
-                staff_link = href
-        except:
-            pass
+    for href in hrefs:
+        for href in hrefs:
+            if href is None:
+                    pass
+            elif "http://www.ssrc.org/staff/" in href:
+                    staff_link = href
     # return that link
     # go to that page
     if staff_link != "":
         staff_soup = cook_soup(staff_link)
-        email = pull_word_given_substing('@ssrc.org', find_first_instance_of_text(grant_soup, '@ssrc.org'))
+        email = pull_word_given_substing('@ssrc.org', find_first_instance_of_text(staff_soup, '@ssrc.org'))
+        return email
     else:
-        return ""
+        # try to find "contact program staff"
+        for href in hrefs:
+            if href is None:
+                    pass
+            elif "mailto:" in href:
+                    return href.split(":")[1]
+
+    return "None given :("
     # find @ssrc.org
     # return that email
 
@@ -182,3 +190,4 @@ print links
 # pu.db
 # foo = 'bar'
 # bar = 'baz'
+
