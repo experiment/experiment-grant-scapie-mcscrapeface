@@ -1,1 +1,6 @@
 env/
+database.pyc
+django-backend/celerybeat-schedule.db
+django-backend/dump.rdb
+ies.pyc
+spencer.pyc

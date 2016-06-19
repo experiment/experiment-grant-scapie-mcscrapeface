@@ -2,6 +2,7 @@
 # from spencer import cook_soup
 import re
 import string
+from grants.models import Grant
 
 '''
 not needed when chsnged
@@ -90,6 +91,75 @@ def find_first_instance_of_text(soup, text):
     that contains first instance of that text
     """
     return soup.find(text=re.compile(text))
+
+def special_match(strg, search=re.compile(r'[^0-9,$]').search):
+    return not bool(search(strg))
+
+
+def get_money_from_str(_str):
+    """
+    take in a str like $500,000
+    and returns an int like 500000
+    """
+    return int(strip_puncuation(_str))
+
+
+def strip_money_and_comma(_str):
+    """
+    take in a str like $500,000
+    and returns a str like 500000
+    """
+    return _str.replace("$", "").replace(",", "")
+
+
+def only_digits(_str):
+    return re.sub("\D", "", _str)
+
+
+def split_monies(double_money_str, c='$'):
+    """
+    takes a str like '$750,000$750,000'
+    and returns a list like ['$750,000', '$750,000']
+    """
+    last_index = len(double_money_str) - 1
+    index_of_second_money = double_money_str[1:last_index].index(c)
+    return [double_money_str[0:index_of_second_money + 1], double_money_str[index_of_second_money + 1:last_index + 1]]
+
+
+def find_money_amount(_str):
+    if len(_str) == 1:
+        return False
+    elif _str.count('$') > 1:
+        return max([get_money_from_str(sub_str) for sub_str in split_monies(_str)])
+    elif not special_match(_str):
+        no_money_or_comma = strip_money_and_comma(_str)
+        only_numbers = int(only_digits(no_money_or_comma))
+        return only_numbers
+    else:
+        return get_money_from_str(_str)
+
+
+def find_max_grant_amount(soup, sub_soup=None, link=None):
+    """
+    takes a soup object
+    finds all money amounts
+    returns highest in soup
+    """
+    monies = []
+    # content_div_text = soup.select('div#right')[0].get_text()
+    if sub_soup is not None:
+        content_div_text = sub_soup[0].get_text()
+
+    for word in content_div_text.split():
+        if "$" in word:
+            monies.append(find_money_amount(word))
+
+    if len(monies) > 0:
+        return max(monies)
+    elif link is not None:
+        return "Grant amount not given. Check " + link + " for more details."
+    else:
+        return "Grant amount not given."
 
 
 def pull_number_from_element(navstr):
@@ -287,19 +357,32 @@ def get_month_day_year(strong_els):
 def get_deadline(soup):
     # try 'deadline is'
     try:
-        deadline_str = find_first_instance_of_text(grant_soup, 'deadline is')
+        deadline_str = find_first_instance_of_text(soup, 'deadline is')
         if deadline_str is not None:
             month, day = get_month_and_day(deadline_str)
-            year = get_year(grant_soup, deadline_str)
+            year = get_year(soup, deadline_str)
             return month, day, year
 
         # try to get strong deadline
-        strong_els = find_all_elements(soup=grant_soup, element='strong')
+        strong_els = find_all_elements(soup=soup, element='strong')
         if strong_els != []:
             month, day, year = get_month_day_year(strong_els)
             return month, day, year
     except TypeError:
         return "no posted application deadline :("
+
+
+def get_description(soup, link=None):
+    try:
+        return soup.select('#overview')[0].get_text()
+    except:
+        pass
+
+    if link is not None:
+        return "Description not given. Try " + link + " for more details."
+    else:
+        return "Description not given."
+
 
     # try:
     #     return get_deadline_from_str(find_first_instance_of_text(grant_soup, 'Applications must be submitted by'))
@@ -307,35 +390,30 @@ def get_deadline(soup):
     #     print "waa"
 
 
-# get http://www.ssrc.org/fellowships/
-soup = cook_soup("http://www.ssrc.org/fellowships/")
+def run():
+    # get http://www.ssrc.org/fellowships/
+    soup = cook_soup("http://www.ssrc.org/fellowships/")
 
-# find "All Fellowships and Prizes"
-fellowship_header = find_first_element_with_text(soup=soup, element='h3', text='All Fellowships')
+    # find "All Fellowships and Prizes"
+    fellowship_header = find_first_element_with_text(soup=soup, element='h3', text='All Fellowships')
 
-# Find all links underneath this header
-ul = fellowship_header.findNext('ul')
-lis = ul.findAll('li')
-only_grants = [li for li in lis if clean_non_grants(li)]
-links = [get_link_from_soup_tag(li) for li in only_grants]
-count = 0
-for link in links:
-    # go to link
-    grant_soup = cook_soup(link)
-    grant = {}
-    grant["organization"] = ORG_NAME
-    grant['name'] = grant_soup.title
-    grant['contact_info_email'] = get_email(grant_soup)
-    grant['contact_info_phone'] = get_phone(grant_soup)
-    grant['link'] = link
-    if count == 13:
-        pu.db
-    grant['deadline'] = get_deadline(grant_soup)
-    print count
-    print grant
-    count += 1
+    # Find all links underneath this header
+    ul = fellowship_header.findNext('ul')
+    lis = ul.findAll('li')
+    only_grants = [li for li in lis if clean_non_grants(li)]
+    links = [get_link_from_soup_tag(li) for li in only_grants]
 
-print links
-# pu.db
-# foo = 'bar'
-# bar = 'baz'
+    for link in links:
+        # go to link
+        grant_soup = cook_soup(link)
+        grant = {}
+        grant["organization"] = ORG_NAME
+        grant['name'] = grant_soup.title.get_text()
+        grant['contact_info_email'] = get_email(grant_soup)
+        grant['contact_info_phone'] = get_phone(grant_soup)
+        grant['link'] = link
+        grant['deadline'] = get_deadline(grant_soup)
+        grant['amount'] = find_max_grant_amount(grant_soup, sub_soup=grant_soup.select('#overview'), link=link)
+        grant['description'] = get_description(grant_soup, link)
+        db_grant = Grant(organization=ORG_NAME, data=grant)
+        db_grant.save()

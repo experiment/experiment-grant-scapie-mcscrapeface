@@ -1,10 +1,12 @@
 import spencer
 import ies
+import ssrc_org
 
 
 def scrape():
     spencer.run()
     ies.run()
+    ssrc_org.run()
 
 
 def save_to_db(grant_as_json):
