@@ -8,8 +8,8 @@ logger = get_task_logger(__name__)
 
 
 @periodic_task(
-    run_every=(crontab(minute=0, hour='*/1')), """run every hour"""
-    # run_every=(crontab(minute='*/1')),       """run every minute"""
+    run_every=(crontab(minute=0, hour='*/1')),
+    # run_every=(crontab(minute='*/1')),
     name="task_scrape_grants",
     ignore_result=True
 )
