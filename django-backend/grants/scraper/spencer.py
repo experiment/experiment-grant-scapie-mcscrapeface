@@ -5,6 +5,8 @@ import re
 import json
 from grants.models import Grant
 
+ORG_NAME = "Spencer Foundation"
+
 
 def pretty_print(_dict):
     print(json.dumps(_dict, indent=4))
@@ -167,8 +169,13 @@ def run():
         # find description
         grant['description'] = find_description(soup)
 
-    db_grant = Grant(organization=grants.keys()[0], data=grants['spencer'])
-    db_grant.save()
+        grant["organization"] = ORG_NAME
+
+        db_grant = Grant(organization=ORG_NAME, data=grant)
+        db_grant.save()
+
+    # db_grant = Grant(organization=grants.keys()[0], data=grants['spencer'])
+    # db_grant.save()
 
     # print pretty_print(grants['spencer'])
 
