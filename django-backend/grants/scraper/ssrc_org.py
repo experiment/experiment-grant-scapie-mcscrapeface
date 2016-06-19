@@ -23,6 +23,7 @@ import pudb
 '''
 
 PHONE = ""
+ORG_NAME = "Social Science Research Council"
 
 def cook_soup(link):
     """
@@ -75,6 +76,11 @@ def find_first_instance_of_text(soup, text):
 
 
 def pull_number_from_element(navstr):
+    """
+    given a Navigablestring
+    returns a phone number that's
+    contained in the string
+    """
     phone = []
     for i, char in enumerate(list(navstr)):
         if navstr[i].isdigit():
@@ -90,6 +96,11 @@ def pull_number_from_element(navstr):
 
 
 def clean_non_grants(li):
+    """
+    returns only those links
+    who's titles contain words
+    that are in the grants list
+    """
     grants = ['fellowship', 'grant']
     text = li.text.lower()
     for grant in grants:
@@ -98,6 +109,14 @@ def clean_non_grants(li):
     return False
 
 def pull_word_given_substing(substring, navstr):
+    """
+    takes
+    a bs4 Navigablestring object
+    and
+    a substring
+    returns
+    the word in the Navigablestring which contains the substring
+    """
     for word in navstr.split(" "):
         if substring in word:
             return word
@@ -105,6 +124,11 @@ def pull_word_given_substing(substring, navstr):
 
 
 def get_phone(grant_soup):
+    """
+    tries to find the phone on the page
+    if it can't, then uses the last phone number found on
+    other SSRC grants
+    """
     global PHONE
     try:
         phone = pull_number_from_element(grant_soup.find(text=re.compile('Tel:')))
@@ -115,12 +139,27 @@ def get_phone(grant_soup):
 
 
 def get_href_from_a(a):
+    """
+    try to get the href from a link
+    """
     try:
         return a['href']
     except:
         return None
 
 def get_staff(grant_soup):
+    """
+    if there's no email address on the grant page,
+    things get complicated.
+    I go hunting for it in a couple places
+
+    first, I try looking if there's a link with 
+    "http://www.ssrc.org/staff/"
+    on the page. If so, I follow that link, and get the email address on the next page
+    
+    second, I try seeing if there's any links with
+    "mailto:" on the page. If so, i get the href of that link
+    """
     # get all links
     lis = grant_soup.findAll('a')
     # get all hrefs for links
@@ -152,11 +191,25 @@ def get_staff(grant_soup):
     # return that email
 
 
+def get_deadline_from_str(navstr):
+    pu.db
+
+
 def get_email(grant_soup):
     try:
         return pull_word_given_substing('@ssrc.org', find_first_instance_of_text(grant_soup, '@ssrc.org'))
     except AttributeError:
         return get_staff(grant_soup)
+
+
+def get_deadline(soup):
+    try:
+        pu.db
+        foo = 'bar'
+        return get_deadline_from_str(find_first_instance_of_text(grant_soup, 'Applications must be submitted by'))
+    except:
+        print "waa"
+
 
 
 
@@ -177,9 +230,13 @@ for link in links:
     # go to link
     grant_soup = cook_soup(link)
     grant = {}
+    grant["organization"] = ORG_NAME
     grant['name'] = grant_soup.title
     grant['contact_info_email'] = get_email(grant_soup)
     grant['contact_info_phone'] = get_phone(grant_soup)
+    grant['link'] = link
+    grant['deadline'] = get_deadline(grant_soup)
+
     print grant
 
 
