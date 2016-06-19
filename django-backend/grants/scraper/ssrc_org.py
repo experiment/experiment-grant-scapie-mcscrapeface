@@ -1,6 +1,7 @@
 # from grants.scraper.spencer import cook_soup
 # from spencer import cook_soup
 import re
+import string
 
 '''
 not needed when chsnged
@@ -25,6 +26,7 @@ import pudb
 PHONE = ""
 ORG_NAME = "Social Science Research Council"
 
+
 def cook_soup(link):
     """
     takes a link as a string
@@ -33,8 +35,22 @@ def cook_soup(link):
     response = requests.get(link)
     return bs4.BeautifulSoup(response.text)
 
+
 def get_link_from_soup_tag(tag):
     return tag.a['href']
+
+
+def find_all_elements(soup, element):
+    """
+    takes
+    a soup object
+    and
+    an element as a string, something like 'a'
+    and returns a list
+    where each element is a bs4.element.Tag object
+    """
+    return soup.findAll(element)
+
 
 def find_all_elements_with_text(soup, element, text):
     """
@@ -48,6 +64,7 @@ def find_all_elements_with_text(soup, element, text):
     where each element is a bs4.element.Tag object
     """
     return soup.findAll(element, text=re.compile(text))
+
 
 def find_first_element_with_text(soup, element, text):
     """
@@ -90,9 +107,8 @@ def pull_number_from_element(navstr):
                     i += 1
                 else:
                     return ''.join(phone)
-        
-    return None
 
+    return None
 
 
 def clean_non_grants(li):
@@ -107,6 +123,7 @@ def clean_non_grants(li):
         if grant in text:
             return True
     return False
+
 
 def pull_word_given_substing(substring, navstr):
     """
@@ -147,6 +164,7 @@ def get_href_from_a(a):
     except:
         return None
 
+
 def get_staff(grant_soup):
     """
     if there's no email address on the grant page,
@@ -156,7 +174,7 @@ def get_staff(grant_soup):
     first, I try looking if there's a link with 
     "http://www.ssrc.org/staff/"
     on the page. If so, I follow that link, and get the email address on the next page
-    
+
     second, I try seeing if there's any links with
     "mailto:" on the page. If so, i get the href of that link
     """
@@ -193,6 +211,7 @@ def get_staff(grant_soup):
 
 def get_deadline_from_str(navstr):
     pu.db
+    return 1
 
 
 def get_email(grant_soup):
@@ -202,16 +221,90 @@ def get_email(grant_soup):
         return get_staff(grant_soup)
 
 
+def get_month_and_day(_str):
+    _list = _str.split(" ")
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    for i, word in enumerate(_list):
+        if _list[i] in months:
+                month = word
+                day = _list[i + 1]
+    return month, day
+
+
+def strip_puncuation(_str):
+    return re.sub(r'\W+', '', _str)
+    # return re.compile('[%s]' % re.escape(string.punctuation)).sub('', _str)
+
+
+def get_year(soup, _str):
+    # start at str
+    # find next instance of '201'
+    return strip_puncuation(_str.findNext(text=re.compile('201')).strip())
+
+
+def solve(s):
+    return re.sub(r'(\d)(st|nd|rd|th)', r'\1', s)
+
+
+def char_check(_str):
+    if strip_puncuation(_str).isdigit() is False and strip_puncuation(_str).isdigit() is False and strip_puncuation(solve(_str)).isdigit() is False:
+        return True
+    else:
+        return False
+
+
+def get_month_day_year(strong_els):
+    """
+    takes 
+    a list of bs4.element.Tag objects
+    where each is a strong element
+    returns
+    the month, day, and year
+    if theres a date in the list
+    """
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    for el in strong_els:
+        text = el.text
+        _list = text.split(" ")
+        for i, word in enumerate(_list):
+            if strip_puncuation(word) in months:
+                month = word
+                try:
+                    if char_check(_list[i + 1]):
+                        break
+                    if list(_list[i])[-1] == ',':
+                        day = strip_puncuation(_list[i - 1])
+                        year = strip_puncuation(_list[i + 1])
+                    elif _list[i + 1]:
+                        day = strip_puncuation(_list[i + 1])
+                        year = strip_puncuation(_list[i + 2])
+                    return month, day, year
+                except:
+                    pass
+    return None
+
+
 def get_deadline(soup):
+    # try 'deadline is'
     try:
-        pu.db
-        foo = 'bar'
-        return get_deadline_from_str(find_first_instance_of_text(grant_soup, 'Applications must be submitted by'))
-    except:
-        print "waa"
+        deadline_str = find_first_instance_of_text(grant_soup, 'deadline is')
+        if deadline_str is not None:
+            month, day = get_month_and_day(deadline_str)
+            year = get_year(grant_soup, deadline_str)
+            return month, day, year
 
+        # try to get strong deadline
+        strong_els = find_all_elements(soup=grant_soup, element='strong')
+        if strong_els != []:
+            month, day, year = get_month_day_year(strong_els)
+            return month, day, year
+    except TypeError:
+        return "no posted application deadline :("
 
-
+    # try:
+    #     return get_deadline_from_str(find_first_instance_of_text(grant_soup, 'Applications must be submitted by'))
+    # except:
+    #     print "waa"
 
 
 # get http://www.ssrc.org/fellowships/
@@ -225,7 +318,7 @@ ul = fellowship_header.findNext('ul')
 lis = ul.findAll('li')
 only_grants = [li for li in lis if clean_non_grants(li)]
 links = [get_link_from_soup_tag(li) for li in only_grants]
-
+count = 0
 for link in links:
     # go to link
     grant_soup = cook_soup(link)
@@ -235,16 +328,14 @@ for link in links:
     grant['contact_info_email'] = get_email(grant_soup)
     grant['contact_info_phone'] = get_phone(grant_soup)
     grant['link'] = link
+    if count == 13:
+        pu.db
     grant['deadline'] = get_deadline(grant_soup)
-
+    print count
     print grant
-
-
-
-    
+    count += 1
 
 print links
 # pu.db
 # foo = 'bar'
 # bar = 'baz'
-
