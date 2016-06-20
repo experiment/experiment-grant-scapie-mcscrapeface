@@ -1,3 +1,5 @@
+require 'pg_search'
+
 class Grant < ActiveRecord::Base
     include PgSearch
     self.table_name = "grants_grant"
