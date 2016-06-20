@@ -1,7 +1,29 @@
 <div class="container">
-    <% @grants.each do |grant| %>
-        <p>
-            <%= grant.data %>
-        </p>
-    <% end %>    
+  
+  
+  <div>
+    <h1 class="center-align">Hey</h1>
+    <h5 class="center-align">Search for a grant.</h5>
+  </div>
+
+  <div class="row">
+
+    <div class="col s12 m6 offset-m3">
+
+      <%= form_for @grant_search_form, url: grants_path do |f| %>
+    
+        <div class="row">
+
+          <div class="input-field col s12">
+    
+            <%= f.text_field :search %>
+            <%= f.label :search %>
+            <%= f.submit 'Submit', class: 'waves-effect waves-light btn' %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  <% end %>
 </div>
