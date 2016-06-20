@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/jmnsf/pg_search.git
+  revision: 16bf3dc253168c80e6c581d9dbbde47a9fcefd9f
+  specs:
+    pg_search (1.0.5)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -177,6 +186,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   pg
+  pg_search!
   rails (= 4.2.6)
   rspec-rails
   sass-rails (~> 5.0)
