@@ -1,0 +1,45 @@
+<div class="container">
+  <!-- header -->
+  <div class="profile-img z-depth-3">
+      <div class="valign-wrapper">
+          <img class="z-depth-3 valign circle responsive-img" src="<%= image_src(@grant) %>">
+      </div>
+      <div class="profile-text">
+          <div class="row no-bottom center-align">
+              <div class="col s6 m3 l3">
+                  <div class="row no-bottom">
+                      <h5 style="overflow: hidden; text-overflow: ellipsis"><%= @grant.organization %></h5>
+                  </div>
+                  <div class="row no-bottom">
+                      <h6>Organization</h6>
+                  </div>
+              </div>
+              <div class="col s6 m3 l3">
+                  <div class="row no-bottom">
+                      <h5 style="overflow: hidden; text-overflow: ellipsis"><%= @grant.data['name'] %></h5>
+                  </div>
+                  <div class="row no-bottom">
+                      <h6>Name</h6>
+                  </div>
+              </div>
+              <div class="col s6 m3 l3">
+                  <div class="row no-bottom">
+                      <h5><%= @grant.data['deadline'] %></h5>
+                  </div>
+                  <div class="row no-bottom">
+                      <h6>Deadline</h6>
+                  </div>
+              </div>
+              <div class="col s6 m3 l3">
+                  <div class="row no-bottom">
+                      <h5><%= @grant.data['type'] %></h5>
+                  </div>
+                  <div class="row no-bottom">
+                      <h6>Type</h6>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- end header -->
+</div>

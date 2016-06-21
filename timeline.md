@@ -1,3 +1,16 @@
+# Denny's Three Point Plan
+
+- Search
+    - results page
+        - should look like crossref
+
+    - details page
+        - should look like plos
+
+- Resources
+    - http://search.crossref.org/?q=jeff
+    - http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001826
+
 # MVP
 
  - Grants Database for Higher Education, Education Research
