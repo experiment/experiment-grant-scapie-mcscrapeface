@@ -3,12 +3,24 @@
   
   <div>
     <h1 class="center-align">Hey</h1>
-    <h5 class="center-align">Search for a grant.</h5>
   </div>
 
   <div class="row">
 
     <div class="col s12 m6 offset-m3">
+
+
+      <div class="row">
+        <div class="col s12">
+          <h4>
+            Search for <span class="teal-text text-lighten-2"><%= @grants.count %></span> <br>
+            research funding opportunities<br>
+            from <span class="teal-text text-lighten-2"><%= @grants.uniq.pluck(:organization).count %></span> <br>
+            different funding organizations.
+          </h4>
+        </div>
+      </div>
+
 
       <!-- Send this form via get -->
       <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>

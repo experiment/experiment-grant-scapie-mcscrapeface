@@ -5,3 +5,18 @@
 .collection-row {
   margin-bottom: 0px;
 }
+
+.profile-img {
+  background-image: url("http://jeffity.com/static/img/user-profile-1.jpg");
+  height: 300px;
+  width: 100%;
+  position: relative;
+}
+
+.profile-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    margin-bottom: 0;
+}

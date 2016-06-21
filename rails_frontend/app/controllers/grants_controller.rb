@@ -5,7 +5,13 @@ class GrantsController < ApplicationController
     if params[:q].present?
       @grants = Grant.pg_search(params[:q])
       render 'index-results'
+    else
+      @grants = Grant.all
     end
+  end
+
+  def show
+    @grant = Grant.find(params[:id])
   end
 end
 
