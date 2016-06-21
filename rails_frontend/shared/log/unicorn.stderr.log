@@ -1,0 +1,10 @@
+I, [2016-06-20T15:04:05.084021 #4126]  INFO -- : Refreshing Gem list
+I, [2016-06-20T15:04:07.922028 #4126]  INFO -- : unlinking existing socket=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/sockets/unicorn.sock
+I, [2016-06-20T15:04:07.922266 #4126]  INFO -- : listening on addr=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/sockets/unicorn.sock fd=11
+I, [2016-06-20T15:04:07.922400 #4126]  INFO -- : worker=0 spawning...
+I, [2016-06-20T15:04:07.924518 #4126]  INFO -- : worker=1 spawning...
+I, [2016-06-20T15:04:07.925331 #4129]  INFO -- : worker=0 spawned pid=4129
+I, [2016-06-20T15:04:07.927735 #4129]  INFO -- : worker=0 ready
+I, [2016-06-20T15:04:07.930654 #4126]  INFO -- : master process ready
+I, [2016-06-20T15:04:07.931701 #4132]  INFO -- : worker=1 spawned pid=4132
+I, [2016-06-20T15:04:07.931957 #4132]  INFO -- : worker=1 ready
