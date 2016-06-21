@@ -10,20 +10,21 @@
 
     <div class="col s12 m6 offset-m3">
 
-      <%= form_for @grant_search_form, url: grants_path do |f| %>
+      <!-- Send this form via get -->
+      <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
     
         <div class="row">
 
           <div class="input-field col s12">
     
-            <%= f.text_field :search %>
-            <%= f.label :search %>
-            <%= f.submit 'Submit', class: 'waves-effect waves-light btn' %>
+            <%= text_field_tag :q, params[:q] %>
+            <%= label_tag :search %>
+            <%= submit_tag 'Submit', class: 'waves-effect waves-light btn', :name => nil %>
           </div>
         </div>
-
-      </div>
+      <% end %>
     </div>
+  </div>
 
-  <% end %>
+  
 </div>

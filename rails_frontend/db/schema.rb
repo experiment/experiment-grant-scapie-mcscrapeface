@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20160620191915) do
     t.string "name", limit: 80, null: false
   end
 
-  add_index "auth_group", ["name"], name: "auth_group_name_2d4204b080e44ee7_like", using: :btree
+  add_index "auth_group", ["name"], name: "auth_group_name_a6ea08ec_like", using: :btree
   add_index "auth_group", ["name"], name: "auth_group_name_key", unique: true, using: :btree
 
   create_table "auth_group_permissions", force: :cascade do |t|
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160620191915) do
     t.integer "permission_id", null: false
   end
 
-  add_index "auth_group_permissions", ["group_id", "permission_id"], name: "auth_group_permissions_group_id_permission_id_key", unique: true, using: :btree
+  add_index "auth_group_permissions", ["group_id", "permission_id"], name: "auth_group_permissions_group_id_0cd325b0_uniq", unique: true, using: :btree
   add_index "auth_group_permissions", ["group_id"], name: "auth_group_permissions_0e939a4f", using: :btree
   add_index "auth_group_permissions", ["permission_id"], name: "auth_group_permissions_8373b171", using: :btree
 
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20160620191915) do
     t.string  "codename",        limit: 100, null: false
   end
 
-  add_index "auth_permission", ["content_type_id", "codename"], name: "auth_permission_content_type_id_codename_key", unique: true, using: :btree
+  add_index "auth_permission", ["content_type_id", "codename"], name: "auth_permission_content_type_id_01ab375a_uniq", unique: true, using: :btree
   add_index "auth_permission", ["content_type_id"], name: "auth_permission_417f1b1c", using: :btree
 
   create_table "auth_user", force: :cascade do |t|
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20160620191915) do
     t.datetime "date_joined",              null: false
   end
 
-  add_index "auth_user", ["username"], name: "auth_user_username_1d911dad5bd5d0f2_like", using: :btree
+  add_index "auth_user", ["username"], name: "auth_user_username_6821ab7c_like", using: :btree
   add_index "auth_user", ["username"], name: "auth_user_username_key", unique: true, using: :btree
 
   create_table "auth_user_groups", force: :cascade do |t|
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20160620191915) do
   end
 
   add_index "auth_user_groups", ["group_id"], name: "auth_user_groups_0e939a4f", using: :btree
-  add_index "auth_user_groups", ["user_id", "group_id"], name: "auth_user_groups_user_id_group_id_key", unique: true, using: :btree
+  add_index "auth_user_groups", ["user_id", "group_id"], name: "auth_user_groups_user_id_94350c0c_uniq", unique: true, using: :btree
   add_index "auth_user_groups", ["user_id"], name: "auth_user_groups_e8701ad4", using: :btree
 
   create_table "auth_user_user_permissions", force: :cascade do |t|
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20160620191915) do
   end
 
   add_index "auth_user_user_permissions", ["permission_id"], name: "auth_user_user_permissions_8373b171", using: :btree
-  add_index "auth_user_user_permissions", ["user_id", "permission_id"], name: "auth_user_user_permissions_user_id_permission_id_key", unique: true, using: :btree
+  add_index "auth_user_user_permissions", ["user_id", "permission_id"], name: "auth_user_user_permissions_user_id_14a6b632_uniq", unique: true, using: :btree
   add_index "auth_user_user_permissions", ["user_id"], name: "auth_user_user_permissions_e8701ad4", using: :btree
 
   create_table "django_admin_log", force: :cascade do |t|
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20160620191915) do
     t.string "model",     limit: 100, null: false
   end
 
-  add_index "django_content_type", ["app_label", "model"], name: "django_content_type_app_label_1b8a30c35b44094b_uniq", unique: true, using: :btree
+  add_index "django_content_type", ["app_label", "model"], name: "django_content_type_app_label_76bd3d3b_uniq", unique: true, using: :btree
 
   create_table "django_migrations", force: :cascade do |t|
     t.string   "app",     limit: 255, null: false
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20160620191915) do
   end
 
   add_index "django_session", ["expire_date"], name: "django_session_de54fa62", using: :btree
-  add_index "django_session", ["session_key"], name: "django_session_session_key_62a7249389858961_like", using: :btree
+  add_index "django_session", ["session_key"], name: "django_session_session_key_c0390e0f_like", using: :btree
 
   create_table "grants_grant", force: :cascade do |t|
     t.string   "organization", limit: 500, null: false
@@ -133,13 +133,13 @@ ActiveRecord::Schema.define(version: 20160620191915) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "auth_group_permissions", "auth_group", column: "group_id", name: "auth_group_permissio_group_id_4a303c5904b46602_fk_auth_group_id"
-  add_foreign_key "auth_group_permissions", "auth_permission", column: "permission_id", name: "auth_group__permission_id_630d714bb24f791_fk_auth_permission_id"
-  add_foreign_key "auth_permission", "django_content_type", column: "content_type_id", name: "auth_content_type_id_26466afcefffcb90_fk_django_content_type_id"
-  add_foreign_key "auth_user_groups", "auth_group", column: "group_id", name: "auth_user_groups_group_id_345da925047cdd8e_fk_auth_group_id"
-  add_foreign_key "auth_user_groups", "auth_user", column: "user_id", name: "auth_user_groups_user_id_4d09d65116fc844b_fk_auth_user_id"
-  add_foreign_key "auth_user_user_permissions", "auth_permission", column: "permission_id", name: "auth_user__permission_id_5eb579f7c15d4d00_fk_auth_permission_id"
-  add_foreign_key "auth_user_user_permissions", "auth_user", column: "user_id", name: "auth_user_user_permiss_user_id_230e32190c962138_fk_auth_user_id"
-  add_foreign_key "django_admin_log", "auth_user", column: "user_id", name: "django_admin_log_user_id_220974c99f381f87_fk_auth_user_id"
-  add_foreign_key "django_admin_log", "django_content_type", column: "content_type_id", name: "djan_content_type_id_23e756c44de4e88e_fk_django_content_type_id"
+  add_foreign_key "auth_group_permissions", "auth_group", column: "group_id", name: "auth_group_permissions_group_id_b120cbf9_fk_auth_group_id"
+  add_foreign_key "auth_group_permissions", "auth_permission", column: "permission_id", name: "auth_group_permiss_permission_id_84c5c92e_fk_auth_permission_id"
+  add_foreign_key "auth_permission", "django_content_type", column: "content_type_id", name: "auth_permiss_content_type_id_2f476e4b_fk_django_content_type_id"
+  add_foreign_key "auth_user_groups", "auth_group", column: "group_id", name: "auth_user_groups_group_id_97559544_fk_auth_group_id"
+  add_foreign_key "auth_user_groups", "auth_user", column: "user_id", name: "auth_user_groups_user_id_6a12ed8b_fk_auth_user_id"
+  add_foreign_key "auth_user_user_permissions", "auth_permission", column: "permission_id", name: "auth_user_user_per_permission_id_1fbb5f2c_fk_auth_permission_id"
+  add_foreign_key "auth_user_user_permissions", "auth_user", column: "user_id", name: "auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id"
+  add_foreign_key "django_admin_log", "auth_user", column: "user_id", name: "django_admin_log_user_id_c564eba6_fk_auth_user_id"
+  add_foreign_key "django_admin_log", "django_content_type", column: "content_type_id", name: "django_admin_content_type_id_c4bce8eb_fk_django_content_type_id"
 end
