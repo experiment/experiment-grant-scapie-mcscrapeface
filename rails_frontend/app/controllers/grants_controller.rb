@@ -3,7 +3,7 @@ require 'grant_search.rb'
 class GrantsController < ApplicationController
   def index
     if params[:q].present?
-      @grants = Grant.pg_search(params[:q]).pluck("data -> 'name'").uniq
+      @grants = Grant.pg_search(params[:q])
       render 'index-results'
     else
       @grants = Grant.all
