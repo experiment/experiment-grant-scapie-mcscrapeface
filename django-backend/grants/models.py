@@ -14,6 +14,10 @@ class Grant(models.Model):
     def __str__(self):
         return self.organization
 
+    def update_updated(self):
+        self.updated_at = timezone.now()
+        self.save()
+
     def save(self, *args, **kwargs):
         self.updated_at = timezone.now()
         if not self.id:

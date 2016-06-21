@@ -171,8 +171,12 @@ def run():
 
         grant["organization"] = ORG_NAME
 
-        db_grant = Grant(organization=ORG_NAME, data=grant)
-        db_grant.save()
+        try:
+            db_grant = Grant.objects.get(data__name=grant['name'])
+            db_grant.update_updated()
+        except:
+            db_grant = Grant(organization=ORG_NAME, data=grant)
+            db_grant.save()
 
     # db_grant = Grant(organization=grants.keys()[0], data=grants['spencer'])
     # db_grant.save()
