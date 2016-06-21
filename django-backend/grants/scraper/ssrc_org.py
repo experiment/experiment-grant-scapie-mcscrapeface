@@ -415,5 +415,10 @@ def run():
         grant['deadline'] = get_deadline(grant_soup)
         grant['amount'] = find_max_grant_amount(grant_soup, sub_soup=grant_soup.select('#overview'), link=link)
         grant['description'] = get_description(grant_soup, link)
-        db_grant = Grant(organization=ORG_NAME, data=grant)
-        db_grant.save()
+
+        try:
+            db_grant = Grant.objects.get(data__name=grant['name'])
+            db_grant.update_updated()
+        except:
+            db_grant = Grant(organization=ORG_NAME, data=grant)
+            db_grant.save()

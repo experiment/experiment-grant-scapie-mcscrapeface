@@ -143,8 +143,12 @@ def run():
         my_grant['amount'] = my_json["synopsis"]["awardCeiling"]
         my_grant["type"] = "grant"
 
-        db_grant = Grant(organization=ORG_NAME, data=my_grant)
-        db_grant.save()
+        try:
+            db_grant = Grant.objects.get(data__name=my_grant['name'])
+            db_grant.update_updated()
+        except:
+            db_grant = Grant(organization=ORG_NAME, data=my_grant)
+            db_grant.save()
 
         # grants.append(json.loads(out))
     #     grants.append(my_grant)
