@@ -8,3 +8,13 @@ I, [2016-06-20T15:04:07.927735 #4129]  INFO -- : worker=0 ready
 I, [2016-06-20T15:04:07.930654 #4126]  INFO -- : master process ready
 I, [2016-06-20T15:04:07.931701 #4132]  INFO -- : worker=1 spawned pid=4132
 I, [2016-06-20T15:04:07.931957 #4132]  INFO -- : worker=1 ready
+I, [2016-06-21T16:22:42.356087 #23296]  INFO -- : Refreshing Gem list
+I, [2016-06-21T16:22:44.423984 #23296]  INFO -- : unlinking existing socket=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/sockets/unicorn.sock
+I, [2016-06-21T16:22:44.424229 #23296]  INFO -- : listening on addr=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/sockets/unicorn.sock fd=8
+I, [2016-06-21T16:22:44.424366 #23296]  INFO -- : worker=0 spawning...
+I, [2016-06-21T16:22:44.426753 #23296]  INFO -- : worker=1 spawning...
+I, [2016-06-21T16:22:44.427917 #23301]  INFO -- : worker=0 spawned pid=23301
+I, [2016-06-21T16:22:44.428588 #23301]  INFO -- : worker=0 ready
+I, [2016-06-21T16:22:44.433044 #23296]  INFO -- : master process ready
+I, [2016-06-21T16:22:44.438267 #23304]  INFO -- : worker=1 spawned pid=23304
+I, [2016-06-21T16:22:44.438571 #23304]  INFO -- : worker=1 ready
