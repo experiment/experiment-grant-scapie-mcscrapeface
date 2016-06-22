@@ -31,47 +31,61 @@
   <!-- results div -->
   <div class="row">
 
-    <div class="col s12 m3">
+    <% if @grants.exists? %>
 
-      <div class="card-panel">
+      <div class="col s12 l3">
 
-        <p>Organization</p>
-        <% @grants.pluck(:organization).uniq.each do |org| %>
-        <div class="row collection-row">
-          <input class="my-checkbox" name=<%= org %> type="checkbox" id=<%= org %> />
-          <label for="jeff"><%= org %></label>
+        <div class="card-panel">
+
+          <p>Organization</p>
+          <% @grants.pluck(:organization).uniq.each do |org| %>
+          <div class="row collection-row">
+            <input class="my-checkbox" name=<%= org %> type="checkbox" id=<%= org %> />
+            <label for="jeff"><%= org %></label>
+          </div>
+          <% end %>
+
         </div>
-        <% end %>
 
+        <div class="card-panel">
+          world
+        </div>
       </div>
 
-      <div class="card-panel">
-        world
-      </div>
-    </div>
+      <div class="col s12 l9">
+        <ul class="collection">
 
-    <div class="col s12 m9">
-      <ul class="collection">
+          <% @grants.each do |grant| %>
 
-        <% @grants.each do |grant| %>
-
-          <li class="collection-item avatar">
-            <img class="circle" src="<%= image_src(grant) %>">
-            <div class="row collection-row">
-              <div class="col s9">
-                <span class="title truncate"><%= grant.data['name'] %></span>
+            <li class="collection-item avatar">
+              <img class="circle" src="<%= image_src(grant) %>">
+              <div class="row collection-row">
+                <div class="col s9">
+                  <span class="title truncate"><%= grant.data['name'] %></span>
+                </div>
               </div>
-            </div>
-            <p><%= grant.organization %> <br>
-              <%= grant.data['deadline'] %>
-            </p>
-            <%= link_to "Details", grant_path(grant), class: "secondary-content" %>
-          </li>
+              <p><%= grant.organization %> <br>
+                <%= grant.data['deadline'] %>
+              </p>
+              <%= link_to "Details", grant_path(grant), class: "secondary-content" %>
+            </li>
 
-        <% end %>
+          <% end %>
 
-      </ul>
-    </div>
+        </ul>
+      </div>
+
+    <% else %>
+
+      <div class="center">
+        <h3>Not results found</h3>
+        <p>Right now, we mostly have grants for Education research. Try searching for 'education' to see some results.</p>
+        <%= image_tag('not_found.png', class: 'responsive-img', alt: 'not found')%>
+      </div>
+
+    <% end %>
+
+
   </div> <!-- end results div -->
 
 </div>

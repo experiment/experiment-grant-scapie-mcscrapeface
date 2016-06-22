@@ -1,0 +1,172 @@
+<% content_for :application_navbar do %>
+    <%= render 'layouts/navbar' %>
+<% end %>
+
+<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br><br>
+            <h1 class="header center white-text"><%= @grant.data['name'] %></h1>
+        </div>
+    </div>
+
+  <div class="parallax">
+    <div class="parallax"><%= image_tag('header.jpg', class: 'tinted', alt: 'header')%></div>
+  </div>
+
+</div>
+
+
+<div class="container">
+  <div class="section">
+
+    <div class="row">
+
+      <h1 class="center-align">Details</h1>
+
+      <div class="card-panel col s12">
+        <h4>Description</h4>
+        <% if desc_too_long(@grant) %>
+          <p><%= shorter_desc(@grant) %></p>
+          <p class="center-align">
+            <a class="waves-effect waves-light btn modal-trigger-desc center-align" href="#modal1">Click here for full description</a>
+          </p>
+        <% else %>
+          <p><%= @grant.data['description'] %></p>
+        <% end %>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      
+      <div class="card-panel col s3 set-height-card">
+        <h4>Amount</h4>
+        <p><%= number_to_currency(@grant.data['amount']) %></p>
+      </div>
+
+      <div class="card-panel col s3 offset-s1 set-height-card">
+        <h4>Organization</h4>
+        <p><%= @grant.organization %></p>
+      </div>
+
+      <div class="card-panel col s3 offset-s1 set-height-card">
+        <h4>Deadline</h4>
+        <p><%= @grant.data['deadline'] %></p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="parallax-container valign-wrapper parallax-shorter">
+  <div class="section no-pad-bot">
+    <div class="container">
+    </div>
+  </div>
+  <div class="parallax">
+    <div class="parallax"><%= image_tag('parallax-0.jpg', class: 'tinted', alt: 'header')%></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="section">
+
+    <div class="row">
+      <h1 class="center-align">Stats</h1>
+
+
+      <div class="col s12">
+        <div class="row">
+          <div class="card-panel col s5">
+            <h4 class="center-align">Save</h4>
+            <p class="center-align">122</p>
+          </div>
+          <div class="card-panel col s5 offset-s1">
+            <h4 class="center-align">Apply</h4>
+            <p class="center-align">15</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card-panel col s5">
+            <h4 class="center-align">View</h4>
+            <p class="center-align">20,025</p>
+          </div>
+          <div class="card-panel col s5 offset-s1">
+            <h4 class="center-align">Share</h4>
+            <p class="center-align">148</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="parallax-container valign-wrapper parallax-shorter">
+  <div class="section no-pad-bot">
+    <div class="container">
+    </div>
+  </div>
+  <div class="parallax">
+    <div class="parallax"><%= image_tag('parallax-1.jpg', class: 'tinted', alt: 'header')%></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="section">
+
+    <h1 class="center-align">Contact</h1>
+
+    <div class="row">
+
+      <div class="card-panel set-height-card col s5">
+        <h4>Contact</h4>
+        <p><%= @grant.data['contact_info_name'] %></p>
+        <p><%= @grant.data['contact_info_email'] %></p>
+        <p><%= @grant.data['contact_info_phone'] %></p>
+      </div>
+
+      <div class="card-panel col s5 offset-s1 set-height-card">
+        <h4>Link</h4>
+        <a target="_blank" href="<%= @grant.data['link'] %>">Link to external grant site</a>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4>Full Description</h4>
+    <p><%= @grant.data['description'] %></p>
+  </div>
+  <div class="modal-footer">
+    <a href="" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
+
+<script>
+  $('.parallax').parallax();
+
+  $('.modal-trigger-desc').on('click', function() {
+    $('#modal1').openModal();
+  })
+</script>
+
+<!--         my_grant["organization"] = ORG_NAME
+        my_grant['name'] = my_json["opportunityTitle"]
+        my_grant['contact_info_email'] = my_json["synopsis"]["agencyContactEmail"]
+        my_grant['contact_info_phone'] = my_json["synopsis"]["agencyPhone"]
+        my_grant['contact_info_name'] = my_json["synopsis"]["agencyContactName"]
+        my_grant['link'] = my_json["synopsis"]["fundingDescLinkUrl"]
+        my_grant['deadline'] = my_json["synopsis"]["responseDate"]
+        my_grant['description'] = my_json["synopsis"]["synopsisDesc"]
+        my_grant['amount'] = my_json["synopsis"]["awardCeiling"]
+        my_grant["type"] = "grant" -->

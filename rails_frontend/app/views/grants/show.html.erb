@@ -1,45 +1,73 @@
-<div class="container">
-  <!-- header -->
-  <div class="profile-img z-depth-3">
-      <div class="valign-wrapper">
-          <img class="z-depth-3 valign circle responsive-img" src="<%= image_src(@grant) %>">
-      </div>
-      <div class="profile-text">
-          <div class="row no-bottom center-align">
-              <div class="col s6 m3 l3">
-                  <div class="row no-bottom">
-                      <h5 style="overflow: hidden; text-overflow: ellipsis"><%= @grant.organization %></h5>
-                  </div>
-                  <div class="row no-bottom">
-                      <h6>Organization</h6>
-                  </div>
-              </div>
-              <div class="col s6 m3 l3">
-                  <div class="row no-bottom">
-                      <h5 style="overflow: hidden; text-overflow: ellipsis"><%= @grant.data['name'] %></h5>
-                  </div>
-                  <div class="row no-bottom">
-                      <h6>Name</h6>
-                  </div>
-              </div>
-              <div class="col s6 m3 l3">
-                  <div class="row no-bottom">
-                      <h5><%= @grant.data['deadline'] %></h5>
-                  </div>
-                  <div class="row no-bottom">
-                      <h6>Deadline</h6>
-                  </div>
-              </div>
-              <div class="col s6 m3 l3">
-                  <div class="row no-bottom">
-                      <h5><%= @grant.data['type'] %></h5>
-                  </div>
-                  <div class="row no-bottom">
-                      <h6>Type</h6>
-                  </div>
-              </div>
-          </div>
-      </div>
+<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br><br>
+            <h1 class="header center white-text"><%= @grant.data['name'] %></h1>
+        </div>
+    </div>
+
+  <div class="parallax">
+    <div class="parallax"><%= image_tag('header.jpg', class: 'tinted', alt: 'header')%></div>
   </div>
-  <!-- end header -->
+
 </div>
+
+
+<div class="container">
+  <div class="section">
+
+    <div class="row">
+      <div class="col s12 m9">
+
+        <div class="card-panel">
+          <h4>Organization</h4>
+          <p><%= @grant.organization %></p>
+        </div>
+
+        <div class="card-panel">
+          <h4>Contact</h4>
+          <p><%= @grant.data['contact_info_name'] %></p>
+          <p><%= @grant.data['contact_info_email'] %></p>
+          <p><%= @grant.data['contact_info_phone'] %></p>
+        </div>
+
+        <div class="card-panel">
+          <h4>Deadline</h4>
+          <p><%= @grant.data['deadline'] %></p>
+        </div>
+
+        <div class="card-panel">
+          <h4>Link</h4>
+          <a target="_blank" href="<%= @grant.data['link'] %>">Link to external grant site</a>
+        </div>
+
+        <div class="card-panel">
+          <h4>Amount</h4>
+          <p><%= @grant.data['amount'] %></p>
+        </div>
+
+        <div class="card-panel">
+          <h4>Description</h4>
+          <p><%= number_to_currency(@grant.data['description']) %></p>
+        </div>
+
+      </div>
+
+      <div class="col m3 hide-on-small-only">
+        stats
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--         my_grant["organization"] = ORG_NAME
+        my_grant['name'] = my_json["opportunityTitle"]
+        my_grant['contact_info_email'] = my_json["synopsis"]["agencyContactEmail"]
+        my_grant['contact_info_phone'] = my_json["synopsis"]["agencyPhone"]
+        my_grant['contact_info_name'] = my_json["synopsis"]["agencyContactName"]
+        my_grant['link'] = my_json["synopsis"]["fundingDescLinkUrl"]
+        my_grant['deadline'] = my_json["synopsis"]["responseDate"]
+        my_grant['description'] = my_json["synopsis"]["synopsisDesc"]
+        my_grant['amount'] = my_json["synopsis"]["awardCeiling"]
+        my_grant["type"] = "grant" -->
