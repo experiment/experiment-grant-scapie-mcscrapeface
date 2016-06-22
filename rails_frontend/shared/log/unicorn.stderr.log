@@ -35,3 +35,15 @@ I, [2016-06-21T17:19:19.888589 #23816]  INFO -- : reaped #<Process::Status: pid 
 I, [2016-06-21T17:19:19.888916 #23816]  INFO -- : reaped #<Process::Status: pid 23823 exit 0> worker=1
 I, [2016-06-21T17:19:19.889131 #23816]  INFO -- : master complete
 E, [2016-06-21T17:19:19.985324 #23296] ERROR -- : reaped #<Process::Status: pid 23816 exit 0> exec()-ed
+I, [2016-06-22T13:48:46.314549 #1645]  INFO -- : executing ["/home/jeff/.rbenv/versions/2.2.3/bin/unicorn", "-c", "config/unicorn.rb", "-E", "production", "-D", {8=>#<Kgio::UNIXServer:/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/sockets/unicorn.sock>}] (in /home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend)
+I, [2016-06-22T13:48:46.315111 #1645]  INFO -- : forked child re-executing...
+I, [2016-06-22T13:48:47.119710 #1645]  INFO -- : inherited addr=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/sockets/unicorn.sock fd=8
+I, [2016-06-22T13:48:47.120161 #1645]  INFO -- : Refreshing Gem list
+I, [2016-06-22T13:48:49.359783 #1645]  INFO -- : worker=0 spawning...
+I, [2016-06-22T13:48:49.362878 #1645]  INFO -- : worker=1 spawning...
+I, [2016-06-22T13:48:49.364416 #1650]  INFO -- : worker=0 spawned pid=1650
+I, [2016-06-22T13:48:49.364772 #1650]  INFO -- : worker=0 ready
+I, [2016-06-22T13:48:49.366414 #1645]  INFO -- : master process ready
+I, [2016-06-22T13:48:49.367336 #1653]  INFO -- : worker=1 spawned pid=1653
+I, [2016-06-22T13:48:49.367615 #1653]  INFO -- : worker=1 ready
+E, [2016-06-22T13:50:04.450541 #1645] ERROR -- : old PID:23296 running with existing pid=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/pids/unicorn.pid.oldbin, refusing rexec
