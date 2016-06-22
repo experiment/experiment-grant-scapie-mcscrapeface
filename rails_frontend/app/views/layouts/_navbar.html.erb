@@ -2,11 +2,8 @@
 <nav class="white" role="navigation">
 
   <div class="nav-wrapper container">
-    
-    <%= link_to 'Back', url_for(:back), class: "waves-effect waves-light btn" %>
-
         
-    <ul class="right">
+    <ul style="display: inline-block;">
       <li>
 
         <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
@@ -17,6 +14,9 @@
         <% end %>
       </li>
     </ul>
-
-  </div>
+    
+    <ul class="right">
+      <li><%= link_to 'Back', url_for(:back), class: 'teal-text' %></li>
+    </ul>
+    
 </nav>
