@@ -18,3 +18,20 @@ I, [2016-06-21T16:22:44.428588 #23301]  INFO -- : worker=0 ready
 I, [2016-06-21T16:22:44.433044 #23296]  INFO -- : master process ready
 I, [2016-06-21T16:22:44.438267 #23304]  INFO -- : worker=1 spawned pid=23304
 I, [2016-06-21T16:22:44.438571 #23304]  INFO -- : worker=1 ready
+I, [2016-06-21T16:59:38.777313 #23816]  INFO -- : executing ["/home/jeff/.rbenv/versions/2.2.3/bin/unicorn", "-c", "config/unicorn.rb", "-E", "production", "-D", {8=>#<Kgio::UNIXServer:/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/sockets/unicorn.sock>}] (in /home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend)
+I, [2016-06-21T16:59:38.780077 #23816]  INFO -- : forked child re-executing...
+I, [2016-06-21T16:59:39.288854 #23816]  INFO -- : inherited addr=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/sockets/unicorn.sock fd=8
+I, [2016-06-21T16:59:39.289200 #23816]  INFO -- : Refreshing Gem list
+I, [2016-06-21T16:59:41.485048 #23816]  INFO -- : worker=0 spawning...
+I, [2016-06-21T16:59:41.490820 #23816]  INFO -- : worker=1 spawning...
+I, [2016-06-21T16:59:41.492009 #23820]  INFO -- : worker=0 spawned pid=23820
+I, [2016-06-21T16:59:41.492679 #23820]  INFO -- : worker=0 ready
+I, [2016-06-21T16:59:41.494030 #23816]  INFO -- : master process ready
+I, [2016-06-21T16:59:41.495119 #23823]  INFO -- : worker=1 spawned pid=23823
+I, [2016-06-21T16:59:41.495470 #23823]  INFO -- : worker=1 ready
+E, [2016-06-21T17:07:40.590586 #23816] ERROR -- : old PID:23296 running with existing pid=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/pids/unicorn.pid.oldbin, refusing rexec
+E, [2016-06-21T17:09:28.064861 #23816] ERROR -- : old PID:23296 running with existing pid=/home/jeff/experiment-grant-scapie-mcscrapeface/rails_frontend/shared/pids/unicorn.pid.oldbin, refusing rexec
+I, [2016-06-21T17:19:19.888589 #23816]  INFO -- : reaped #<Process::Status: pid 23820 exit 0> worker=0
+I, [2016-06-21T17:19:19.888916 #23816]  INFO -- : reaped #<Process::Status: pid 23823 exit 0> worker=1
+I, [2016-06-21T17:19:19.889131 #23816]  INFO -- : master complete
+E, [2016-06-21T17:19:19.985324 #23296] ERROR -- : reaped #<Process::Status: pid 23816 exit 0> exec()-ed
