@@ -3,7 +3,7 @@ import os
 import requests
 import json
 from spencer import pretty_print
-from grants.models import Grant
+from grants.models import Grant, Funder
 
 ORG_NAME = "Institute of Education Sciences"
 
@@ -132,7 +132,7 @@ def run():
 
         my_grant = {}
 
-        my_grant["organization"] = ORG_NAME
+        my_grant["funder"] = ORG_NAME
         my_grant['name'] = my_json["opportunityTitle"]
         my_grant['contact_info_email'] = my_json["synopsis"]["agencyContactEmail"]
         my_grant['contact_info_phone'] = my_json["synopsis"]["agencyPhone"]
@@ -147,8 +147,12 @@ def run():
             db_grant = Grant.objects.get(data__name=my_grant['name'])
             db_grant.update_updated()
         except:
-            db_grant = Grant(organization=ORG_NAME, data=my_grant)
+            db_grant = Grant(data=my_grant)
             db_grant.save()
+
+        funder, created = Funder.objects.get_or_create(name=ORG_NAME)
+        db_grant.funder = funder
+        db_grant.save()
 
         # grants.append(json.loads(out))
     #     grants.append(my_grant)

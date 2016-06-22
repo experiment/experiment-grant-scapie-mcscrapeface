@@ -3,6 +3,11 @@ require 'pg_search'
 class Grant < ActiveRecord::Base
     include PgSearch
     self.table_name = "grants_grant"
+
+    belongs_to :funder
+
+    scope :organization_filter, -> (organization) {where organization: organization }
+
     multisearchable :against => [:search_description, :search_link]
 
     pg_search_scope :pg_search, :against => [PgSearch::Configuration::JsonbColumn.new(:data, 'description'),

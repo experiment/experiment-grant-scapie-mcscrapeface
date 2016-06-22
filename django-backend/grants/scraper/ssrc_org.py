@@ -2,7 +2,7 @@
 # from spencer import cook_soup
 import re
 import string
-from grants.models import Grant
+from grants.models import Grant, Funder
 
 '''
 not needed when chsnged
@@ -407,7 +407,7 @@ def run():
         # go to link
         grant_soup = cook_soup(link)
         grant = {}
-        grant["organization"] = ORG_NAME
+        grant["funder"] = ORG_NAME
         grant['name'] = grant_soup.title.get_text()
         grant['contact_info_email'] = get_email(grant_soup)
         grant['contact_info_phone'] = get_phone(grant_soup)
@@ -420,5 +420,9 @@ def run():
             db_grant = Grant.objects.get(data__name=grant['name'])
             db_grant.update_updated()
         except:
-            db_grant = Grant(organization=ORG_NAME, data=grant)
+            db_grant = Grant(data=grant)
             db_grant.save()
+
+        funder, created = Funder.objects.get_or_create(name=ORG_NAME)
+        db_grant.funder = funder
+        db_grant.save()

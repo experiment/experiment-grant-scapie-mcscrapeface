@@ -38,10 +38,10 @@
         <div class="card-panel">
 
           <p>Organization</p>
-          <% @grants.pluck(:organization).uniq.each do |org| %>
+          <% all_unique_funders(@grants).each do |funder| %>
           <div class="row collection-row">
-            <input class="my-checkbox" name=<%= org %> type="checkbox" id=<%= org %> />
-            <label for="jeff"><%= org %></label>
+            <input class="my-checkbox" name=<%= funder.id %> type="checkbox" id=<%= funder.id %> />
+            <label for=<%= funder.id %>><%= funder.name %></label>
           </div>
           <% end %>
 
@@ -64,7 +64,7 @@
                   <span class="title truncate"><%= grant.data['name'] %></span>
                 </div>
               </div>
-              <p><%= grant.organization %> <br>
+              <p><%= grant.funder.name %> <br>
                 <%= grant.data['deadline'] %>
               </p>
               <%= link_to "Details", grant_path(grant), class: "secondary-content" %>

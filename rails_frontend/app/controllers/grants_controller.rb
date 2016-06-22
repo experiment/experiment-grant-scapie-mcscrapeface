@@ -7,6 +7,7 @@ class GrantsController < ApplicationController
       render 'index-results'
     else
       @grants = Grant.all
+      @funders = Funder.all
     end
   end
 
