@@ -20,3 +20,33 @@
     background-color: white;
     margin-bottom: 0;
 }
+
+.no-bottom {
+    margin-bottom: 0px;
+}
+
+.modal-trigger-desc {
+     margin-bottom: 20px;
+}
+
+.parallax-shorter {
+  height: 250px;
+}
+
+.set-height-card {
+  height: 166px;
+}
+
+.input-field input[type=search] {
+  display: inline-block; 
+}
+
+nav .input-field label i {
+  color: black;
+  transition: color .3s;
+}
+
+
+nav .input-field label.active i {
+    color: black;
+}

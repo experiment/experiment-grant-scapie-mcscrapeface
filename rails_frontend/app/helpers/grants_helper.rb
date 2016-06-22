@@ -12,7 +12,21 @@ module GrantsHelper
         tag = image_url('grant.jpg')
     end
     tag
-  end  
+  end
+
+  def desc_too_long(grant)
+    '''
+    return true if length of description is greater than 1149
+    '''
+    grant.data['description'].length >= 1150
+  end
+
+  def shorter_desc(grant)
+    '''
+    return first 1149 chars of desc + ...
+    '''
+    grant.data['description'][0..1049] + '...'
+  end
 
 
 end

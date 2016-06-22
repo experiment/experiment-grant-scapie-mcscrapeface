@@ -12,6 +12,7 @@ class GrantsController < ApplicationController
 
   def show
     @grant = Grant.find(params[:id])
+    render 'show2'
   end
 end
 
