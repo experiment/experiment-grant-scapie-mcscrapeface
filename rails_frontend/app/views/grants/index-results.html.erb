@@ -36,20 +36,25 @@
       <div class="col s12 l3">
 
         <div class="card-panel">
+          <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
 
-          <p>Organization</p>
-          <% all_unique_funders(@grants).each do |funder| %>
-          <div class="row collection-row">
-            <input class="my-checkbox" name=<%= funder.id %> type="checkbox" id=<%= funder.id %> />
-            <label for=<%= funder.id %>><%= funder.name %></label>
-          </div>
+            <h5>Filter results</h5>
+            <p>Organization</p>
+            <% all_unique_funders(@grants).each do |funder| %>
+              <div class="row collection-row">
+                
+                <%= check_box_tag 'funder', "#{funder.id}", false, id: funder.id %>
+                <%= label_tag funder.id, funder.name, for: funder.id %>
+
+              </div>
+            <% end %>
+            <%= hidden_field_tag :q , params[:q] %>
+            <%= submit_tag 'Submit', class: 'waves-effect waves-light btn', :name => nil %>
           <% end %>
-
+          
         </div>
 
-        <div class="card-panel">
-          world
-        </div>
+
       </div>
 
       <div class="col s12 l9">
