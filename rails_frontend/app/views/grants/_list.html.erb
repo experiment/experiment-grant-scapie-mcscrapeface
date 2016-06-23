@@ -1,0 +1,22 @@
+<div id="filterrific_results" class="col s12 l9">
+  <ul class="collection">
+
+    <% grants.each do |grant| %>
+
+      <li class="collection-item avatar">
+        <img class="circle" src="<%= image_src(grant) %>">
+        <div class="row collection-row">
+          <div class="col s9">
+            <span class="title truncate"><%= grant.data['name'] %></span>
+          </div>
+        </div>
+        <p><%= grant.organization %> <br>
+          <%= grant.data['deadline'] %>
+        </p>
+        <%= link_to "Details", grant_path(grant), class: "secondary-content" %>
+      </li>
+
+    <% end %>
+
+  </ul>
+</div>

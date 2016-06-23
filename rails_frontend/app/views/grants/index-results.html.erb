@@ -43,7 +43,7 @@
             <% all_unique_funders(@grants).each do |funder| %>
               <div class="row collection-row">
                 
-                <%= check_box_tag 'funder', "#{funder.id}", false, id: funder.id %>
+                <%= check_box_tag 'funder_by_id[]', "#{funder.id}", false, id: funder.id %>
                 <%= label_tag funder.id, funder.name, for: funder.id %>
 
               </div>

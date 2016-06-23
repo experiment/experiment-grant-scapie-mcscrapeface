@@ -1,7 +1,10 @@
 require 'pg_search'
 
 class Grant < ActiveRecord::Base
+    include ActionView::Helpers
     include PgSearch
+    include Filterable
+
     self.table_name = "grants_grant"
 
     belongs_to :funder
@@ -11,7 +14,8 @@ class Grant < ActiveRecord::Base
     # scope :funder_by_id, where('funder_id == ?', id)
     # scope :funder_by_id, -> (id) {where(:funder.id => id)}
     # scope :funder_by_id, includes(:funders).where('grant.funder=?', id)
-    scope :funder_by_id, lambda { |funder_id| where('funder_id = ?', funder_id)}
+    # scope :funders_by_id, lambda { |funder_ids| where('funder_id = ?', funders_id.map{ |id| id.to_i })}
+    scope :funder_by_id, lambda { |funder_id| where('funder_id' => ApplicationController.helpers.handle_funder_id_or_ids(funder_id)) }
 
     multisearchable :against => [:search_description, :search_link]
 

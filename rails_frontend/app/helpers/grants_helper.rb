@@ -33,5 +33,21 @@ module GrantsHelper
     funders.uniq
   end
 
+  def handle_funder_id_or_ids(id_or_ids)
+    """
+    takes 
+    either an str which is a number, but as a str
+    or an array of these things
+    returns 
+    either the number as an int
+    or an array where each element is an int
+    """
+    if id_or_ids.class == Array
+      id_or_ids.map{ |str| str.to_i }
+    else
+      id_or_ids.to_i
+    end
+  end
+
 
 end
