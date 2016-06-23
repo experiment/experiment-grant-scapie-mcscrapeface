@@ -2,3 +2,9 @@ env/
 django-backend/celerybeat-schedule.db
 django-backend/dump.rdb
 *.pyc
+django-backend/celerybeat-schedule
+django-backend/celerybeat.pid
+rails_frontend/.rbenv-vars
+rails_frontend/config/unicorn.rb
+rails_frontend/public/assets/
+rails_frontend/shared/
