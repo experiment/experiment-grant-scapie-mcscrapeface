@@ -37,18 +37,18 @@
 
         <div class="card-panel">
           <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
-
+            <%= hidden_field_tag :q , params[:q] %>
             <h5>Filter results</h5>
             <p>Organization</p>
-            <% all_unique_funders(@grants).each do |funder| %>
+            <% all_unique_funders(Grant.pg_search(params[:q])).each do |funder| %>
               <div class="row collection-row">
                 
-                <%= check_box_tag 'funder_by_id[]', "#{funder.id}", false, id: funder.id %>
+                <%= check_box_tag 'funder_by_id[]', "#{funder.id}", check_params_for_funder(params, funder), id: funder.id %>
                 <%= label_tag funder.id, funder.name, for: funder.id %>
 
               </div>
             <% end %>
-            <%= hidden_field_tag :q , params[:q] %>
+            
             <%= submit_tag 'Submit', class: 'waves-effect waves-light btn', :name => nil %>
           <% end %>
           

@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require materialize
+// = require jquery-deparam
 //= require grants
 //= require_tree .
