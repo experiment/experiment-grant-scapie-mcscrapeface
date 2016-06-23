@@ -2,17 +2,24 @@
 <nav class="white" role="navigation">
 
   <div class="nav-wrapper container">
-    <%= link_to 'Back', url_for(:back), class: "waves-effect waves-light btn" %>
         
-  <ul class="right">
-    <li>
+    <ul style="display: inline-block;">
+      <li>
 
-      <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
-        <div center class="input-field">
-          <input id="search" type="search" placeholder="search again" name="q" required>
-          <label for="search"><i class="material-icons">search</i></label>
-        </div>
-      <% end %>
-    </li>
-  </ul>
+        <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
+          <div center class="input-field">
+            <input id="search" type="search" placeholder="search again" name="q" required>
+            <label for="search"><i class="material-icons">search</i></label>
+          </div>
+        <% end %>
+      </li>
+    </ul>
+    
+    <ul class="right">
+      <li><%= link_to 'Back', url_for(:back), class: 'teal-text' %></li>
+    </ul>
+    
 </nav>
+        
+
+
