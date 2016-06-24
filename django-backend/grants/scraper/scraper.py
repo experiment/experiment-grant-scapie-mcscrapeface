@@ -4,9 +4,9 @@ import ssrc_org
 
 
 def scrape():
+    ssrc_org.run()
     spencer.run()
     ies.run()
-    ssrc_org.run()
 
 
 def save_to_db(grant_as_json):

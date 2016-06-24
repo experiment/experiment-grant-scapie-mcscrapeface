@@ -1,4 +1,5 @@
 require 'pg_search'
+require 'date'
 
 class Grant < ActiveRecord::Base
     include ActionView::Helpers
@@ -31,6 +32,22 @@ class Grant < ActiveRecord::Base
 
     def search_link
       data['link']
-    end       
+    end
+
+    def deadline_pretty_print
+        if data['deadline'] == 0
+            no_deadline_short
+        else
+            Time.at(data['deadline'].to_i).strftime("%m/%d/%Y")
+        end
+    end
+
+    def no_deadline_short
+        "No deadline given."
+    end
+
+    def no_deadline_long
+        no_deadline_short +  "Check " + data['link'] + " for more details."
+    end
 
 end

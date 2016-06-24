@@ -361,13 +361,13 @@ def get_deadline(soup):
         if deadline_str is not None:
             month, day = get_month_and_day(deadline_str)
             year = get_year(soup, deadline_str)
-            return month, day, year
+            return str(month) + " " + str(day) + " " + str(year)
 
         # try to get strong deadline
         strong_els = find_all_elements(soup=soup, element='strong')
         if strong_els != []:
             month, day, year = get_month_day_year(strong_els)
-            return month, day, year
+            return str(month) + " " + str(day) + " " + str(year)
     except TypeError:
         return "no posted application deadline :("
 

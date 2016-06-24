@@ -28,13 +28,13 @@
   </div> <!-- end form -->
 
 
-  <!-- results div -->
+  <!-- results and filter div -->
   <div class="row">
 
+    <!-- filter form -->
     <% if @grants.exists? %>
 
       <div class="col s12 l3">
-
         <div class="card-panel">
           <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
             <%= hidden_field_tag :q , params[:q] %>
@@ -48,20 +48,18 @@
 
               </div>
             <% end %>
-            
             <%= submit_tag 'Submit', class: 'waves-effect waves-light btn', :name => nil %>
-          <% end %>
-          
+          <% end %> 
         </div>
-
-
       </div>
+      <!-- end results grants list -->
 
+      <!-- results div -->
       <div class="col s12 l9">
-        <ul class="collection">
+        <ul class="collection with-header">
+          <li class="collection-header"><p>Sort by: <%= link_to "Grant Name", :q => (params[:q]), :sort => "data->'name'", class: 'active' %></p></li>
 
           <% @grants.each do |grant| %>
-
             <li class="collection-item avatar">
               <img class="circle" src="<%= image_src(grant) %>">
               <div class="row collection-row">
@@ -70,15 +68,15 @@
                 </div>
               </div>
               <p><%= grant.funder.name %> <br>
-                <%= grant.data['deadline'] %>
+                <%= grant.deadline_pretty_print %>
               </p>
               <%= link_to "Details", grant_path(grant), class: "secondary-content" %>
             </li>
-
           <% end %>
 
         </ul>
       </div>
+      <!-- end filter -->
 
     <% else %>
 

@@ -4,7 +4,7 @@ class GrantsController < ApplicationController
   
   def index
     if params[:q].present?
-      @grants = Grant.pg_search(params[:q]).filter(params.slice(:funder_by_id))
+      @grants = Grant.order(params[:sort]).pg_search(params[:q]).filter(params.slice(:funder_by_id))
       render 'index-results'
     else
       @grants = Grant.all
@@ -16,6 +16,7 @@ class GrantsController < ApplicationController
     @grant = Grant.find(params[:id])
     render 'show2'
   end
+
 end
 
 
