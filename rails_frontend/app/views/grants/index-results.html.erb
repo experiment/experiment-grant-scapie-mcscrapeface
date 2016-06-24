@@ -57,7 +57,16 @@
       <!-- results div -->
       <div class="col s12 l9">
         <ul class="collection with-header">
-          <li class="collection-header"><p>Sort by: <%= link_to "Grant Name", :q => (params[:q]), :sort => "data->'name'", class: 'active' %></p></li>
+          <li class="collection-header">
+            <p>
+              Sort by: <span>
+                <%= link_to "Grant Name", :q => (params[:q]), :sort => "data -> 'name'", class: 'active' %>
+              </span>
+              <span>
+                | <%= link_to "Deadline", :q => (params[:q]), :sort => "data -> 'deadline'", class: 'active' %>
+              </span>
+            </p>
+          </li>
 
           <% @grants.each do |grant| %>
             <li class="collection-item avatar">
