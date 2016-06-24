@@ -60,10 +60,10 @@
           <li class="collection-header">
             <p>
               Sort by: <span>
-                <%= link_to "Grant Name", :q => (params[:q]), :sort => "data -> 'name'", class: 'active' %>
+                <%= sortable_grants(column="data->'name'", title="Grant Name", other_params(params)) %>
               </span>
               <span>
-                | <%= link_to "Deadline", :q => (params[:q]), :sort => "data -> 'deadline'", class: 'active' %>
+                | <%= sortable_grants(column="data->'deadline'", title="Deadline", other_params(params)) %>
               </span>
             </p>
           </li>
