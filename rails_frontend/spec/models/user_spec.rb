@@ -81,6 +81,11 @@ describe User do
     context "when email is taken" do
       let(:dup_user) { user.dup }
       it "should be invalid" do
+        dup_user.email = user.email.upcase
+        dup_user.save
+        expect(user).to_not be_valid
+      end
+    end
         
 
   end
