@@ -82,15 +82,62 @@ describe User do
 
     context "when email is taken" do
       let(:dup_user) { user.dup }
+      before { user.save }
       it "should be invalid" do
         dup_user.email = user.email.upcase
-        dup_user.save
+        expect(dup_user).to_not be_valid
+      end
+    end
+  end
+
+  describe 'password' do
+
+    context "when password is not present" do
+      before { user.password = user.password_confirmation = ""}
+      it "should not be valid" do
         expect(user).to_not be_valid
       end
     end
-        
+
+    context "when password doesn;t match confirmation" do
+      before { user.password_confirmation = 'mismatch' }
+      it "should not be valid" do 
+        expect(user).to_not be_valid
+      end
+    end
+
+    context "when password confiramtion is null" do
+      before { user.password_confirmation = '' }
+      it "should not be valid" do 
+        expect(user).to_not be_valid
+      end
+    end
+
+    context "when password is too shrt" do
+      before { user.password = user.password_confirmation = "a" * 5 }
+      it "should not be valid" do
+        expect(user).to_not be_valid
+      end
+    end
+
+    context "return value of authenticate method" do
+      before { user.save }
+      let(:found_user) { User.find_by_email(user.email) }
+      let(:user_for_invalid_password) { found_user.authenticate("invalid") }
+
+      it "should be found with valid password" do
+        expect(user).to eq found_user.authenticate(user.password)
+      end
+
+      it "should not be found with invalid password" do
+        expect(user).to_not eq user_for_invalid_password
+        expect(user_for_invalid_password).to eq false
+      end
+    end
 
   end
+
+
 
 #   describe "when email is not present" do
 #     before { @user.email = "" }
