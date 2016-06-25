@@ -18,13 +18,15 @@ describe User do
 
   # it { should be_valid }
 
-  let(:user) { User.new(name: "Example User", email: "user@example.com") }
+  let(:user) { User.new(name: "Example User", email: "user@example.com",
+                        password: "foobar", password_confirmation: "foobar") }
 
 
   describe "responds to attrs" do
     it "should respond to attrs" do
         expect(user).to respond_to(:name)
         expect(user).to respond_to(:email)
+        expect(user).to respond_to(:password_digest)
         expect(user).to be_valid
     end
   end
