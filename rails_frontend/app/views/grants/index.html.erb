@@ -24,6 +24,8 @@
 
       <!-- Send this form via get -->
       <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
+
+        <%= render 'shared/error_messages' %>
     
         <div class="row">
 
