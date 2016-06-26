@@ -2,6 +2,7 @@
 <% if logged_in? %>
   <ul id="dropdown1" class="dropdown-content">
     <li><%= link_to 'my profile', user_path(current_user), class: "teal-text" %></li>
+    <li><%= link_to "Settings", edit_user_path(current_user) %></li>
     <li class="divider"></li>
     <li><%= link_to 'log out', logout_path, method: :delete, class: "teal-text" %></li>
   </ul>

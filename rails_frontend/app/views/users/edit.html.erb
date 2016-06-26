@@ -1,0 +1,44 @@
+<% content_for :application_navbar do %>
+    <%= render 'layouts/common_navbar' %>
+<% end %>
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col s12 center">
+      <br>
+      <%= image_tag('beaker.png', alt: 'bird', class: 'responsive-img') %>
+      <h3 class="center">
+        Edit your account
+      </h3>
+    </div>
+  </div>
+  
+
+  
+
+  <div class="row">
+
+    <div class="col s12 m6 leftContent">
+
+      <%= form_for(@user) do |f| %>
+        <div class="row">
+          <%= render 'fields', f: f %>
+          <div class="input-field col s12">
+            <%= f.submit "Edit my account", class: 'waves-effect waves-light btn' %>
+          </div>
+        </div>
+      <% end %>
+
+      
+      
+    </div>
+
+    <div class="input-field col s12 m6">
+        <%= gravatar_for @user %>
+        <a href="http://gravatar.com/emails" target="_blank">change</a>
+      </div>
+  </div>
+</div>
