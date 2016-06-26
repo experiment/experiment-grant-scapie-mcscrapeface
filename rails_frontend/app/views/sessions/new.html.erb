@@ -1,0 +1,37 @@
+<div class="container">
+  
+  <div>
+    <h1 class="center-align">Login</h1>
+  </div>
+
+  <div class="row">
+
+    <div class="col s12 l6 offset-l3">
+
+      <!-- Send this form via get -->
+      <%= form_for(:session, url: login_path) do |f| %>
+        
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.email_field :email %>
+            <%= f.label :email %>
+          </div>
+          <div class="input-field col s12">
+            <%= f.password_field :password %>
+            <%= f.label :password %>
+          </div>
+          <div class="input-field col s12">
+            <%= f.submit "Login", class: 'waves-effect waves-light btn' %>
+          </div>
+          <div class="col s12">
+              <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+          </div>
+          
+        </div>
+      </div>
+      <% end %>
+      
+    </div>
+
+  </div>
+</div>

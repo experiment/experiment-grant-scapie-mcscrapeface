@@ -1,0 +1,27 @@
+<!-- full size navbar -->
+<nav class="white" role="navigation">
+
+  <div class="nav-wrapper container">
+        
+    <ul style="display: inline-block;">
+      <li>
+
+        <%= form_tag(grants_path, method: 'get', enforce_utf8: false) do %>
+          <div center class="input-field">
+            <input id="search" type="search" placeholder="search" name="q" required>
+            <label for="search"><i class="material-icons">search</i></label>
+          </div>
+        <% end %>
+      </li>
+    </ul>
+    
+    <ul class="right">
+      <% if logged_in? %>
+          <li><%= link_to current_user.name, user_path(current_user), class: "teal-text" %></li>
+          <li><%= link_to 'log out', logout_path, method: :delete, class: "teal-text" %></li>
+      <% else %>
+          <li><%= link_to "log in", login_path, class: "teal-text" %></li>
+      <% end %>
+    </ul>
+    
+</nav>
