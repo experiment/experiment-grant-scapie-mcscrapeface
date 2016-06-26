@@ -5,7 +5,7 @@ class GrantsController < ApplicationController
   
   def index
     if params[:q].present?
-      @grants = Grant.order(sort_column + ' ' + sort_direction).pg_search(params[:q]).filter(params.slice(:funder_by_id))
+      @grants = Grant.paginate(:page => params[:page], :per_page => 10).order(sort_column + ' ' + sort_direction).pg_search(params[:q]).filter(params.slice(:funder_by_id))
       render 'index-results'
     else
       @grants = Grant.all

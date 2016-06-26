@@ -54,8 +54,9 @@
           <% end %> 
         </div>
       </div>
-      <!-- end results grants list -->
-
+      <!-- end filter -->
+      
+      
       <!-- results div -->
       <div class="col s12 l9">
         <ul class="collection with-header">
@@ -69,7 +70,7 @@
               </span>
             </p>
           </li>
-
+          <%= will_paginate @grants, renderer: MaterializePagination::Rails %>
           <% @grants.each do |grant| %>
             <li class="collection-item avatar">
               <img class="circle" src="<%= image_src(grant) %>">
@@ -84,10 +85,12 @@
               <%= link_to "Details", grant_path(grant), class: "secondary-content" %>
             </li>
           <% end %>
+          <%= will_paginate @collection, renderer: MaterializePagination::Rails %>
 
         </ul>
       </div>
-      <!-- end filter -->
+      
+      <!-- end results-->
 
     <% else %>
 

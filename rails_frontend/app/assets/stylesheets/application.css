@@ -18,3 +18,8 @@
 html {
   background-color: #FCFCFC
 }
+
+.pagination a li.active { 
+    color: #fff; 
+    background-color: #26a69a;
+}

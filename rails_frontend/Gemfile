@@ -37,6 +37,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'pg'
+gem 'will_paginate',           '3.0.7'
+gem 'will_paginate-materialize'
 
 
 group :development, :test do
