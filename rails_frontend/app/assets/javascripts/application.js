@@ -16,4 +16,5 @@
 //= require materialize
 // = require jquery-deparam
 //= require grants
+//= require commons
 //= require_tree .

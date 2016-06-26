@@ -9,6 +9,10 @@
 </head>
 <body>
 
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %> toast" style="display:none"><%= message %></div>
+  <% end %>
+
   <%= yield :application_navbar %>
 
   <%= yield %>
