@@ -11,8 +11,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)    # Not the final implementation!
     if @user.save
       # Handle a successful save.
+      log_in @user
       flash[:success] = "You've successfully signed up!"
-      redirect_to @user
+      redirect_to grants_url
     else
       render 'new'
     end

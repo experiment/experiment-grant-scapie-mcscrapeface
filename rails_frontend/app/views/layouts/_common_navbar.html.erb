@@ -1,4 +1,12 @@
 <!-- full size navbar -->
+<% if logged_in? %>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><%= link_to 'my profile', user_path(current_user), class: "teal-text" %></li>
+    <li class="divider"></li>
+    <li><%= link_to 'log out', logout_path, method: :delete, class: "teal-text" %></li>
+  </ul>
+<% end %>
+
 <nav class="white" role="navigation">
 
   <div class="nav-wrapper container">
@@ -17,10 +25,11 @@
     
     <ul class="right">
       <% if logged_in? %>
-          <li><%= link_to current_user.name, user_path(current_user), class: "teal-text" %></li>
-          <li><%= link_to 'log out', logout_path, method: :delete, class: "teal-text" %></li>
+          <!-- Dropdown Trigger -->
+          <li><a class="dropdown-button teal-text" href="" data-activates="dropdown1"><%= current_user.name %><i class="material-icons right teal-text">arrow_drop_down</i></a></li>
       <% else %>
           <li><%= link_to "log in", login_path, class: "teal-text" %></li>
+          <li><%= link_to "sign up", signup_path, class: "teal-text" %></li>
       <% end %>
     </ul>
     
